@@ -1,113 +1,229 @@
-import Image from 'next/image'
+import Image from "next/image";
+
+import aboutSectionImage from "../images/about_section.jpg";
+import aboutImage from "../images/about-image.jpg";
+import givingImage from "../images/giving-image.jpg";
+import Link from "next/link";
+
+const cards = [
+  {
+    name: "Our Beliefs",
+    description:
+      "See how we view God, Jesus, the Bible, man, and many significant aspects of our faith. Firmly rooted in Scripture, the beliefs of Light Night guide our decisions as a ministry.",
+  },
+  {
+    name: "Our Vision",
+    description:
+      "Without a vision, we perish. See what Light Night's vision is, how we're working to accomplish it, and how you can partner with us.",
+  },
+  {
+    name: "Our Team",
+    description:
+      "Executing the vision takes more than one person, it takes a dedicated group. View who is on our team and see how you can join us.",
+  },
+];
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="bg-white overflow-hidden min-h-screen m-0 ">
+      <div className="mx-auto max-w-7xl md:pb-32 pt-8 md:pt-16 lg:px-8">
+        <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
+          <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-700 sm:text-6xl">
+              We’re pursuing <span className="text-blue-700">Jesus</span>,
+              advancing <span className="text-orange-500">Revival</span> and
+              taking His{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-orange-500">
+                Presence
+              </span>{" "}
+              to this generation
+            </h1>
+  
+          </div>
+          <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+            <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
+              <div className="relative">
+                <Image
+                  src="/home_tile_1.jpg"
+                  alt=""
+                  width="500"
+                  height="1000"
+                  className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+              </div>
+            </div>
+            <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
+              <div className="relative">
+                <Image
+                  src="/home_tile_3.jpg"
+                  alt=""
+                  width="500"
+                  height="1000"
+                  className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+              </div>
+              <div className="relative">
+                <Image
+                  src="/home_tile_2.jpg"
+                  alt=""
+                  width="500"
+                  height="1000"
+                  className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+              </div>
+            </div>
+            <div className="w-44 flex-none space-y-8 pt-8 sm:pt-12">
+              <div className="relative">
+                <Image
+                  src="/home_tile_4.jpg"
+                  alt=""
+                  width="500"
+                  height="1000"
+                  className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+              </div>
+              <div className="relative">
+                <Image
+                  src="/home_tile_5.jpg"
+                  alt=""
+                  width="500"
+                  height="1000"
+                  className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* About Section */}
+      <section className="p-4">
+        <div className="relative isolate rounded-md overflow-hiddenpy-24 sm:py-32">
+          <Image
+            src="/home_about_section.jpg"
+            alt=""
+            height="100"
+            width="200"
+            className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center"
+          />
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl lg:mx-0">
+              <h2 className="text-4xl font-bold tracking-tight text-white">
+                Learn about Light Night
+              </h2>
+            </div>
+            <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8 backdrop-blur-sm">
+              {cards.map((card) => (
+                <div
+                  key={card.name}
+                  className="flex flex-col gap-x-4 rounded-xl bg-white/5 p-6 ring-1 ring-inset ring-white/10"
+                >
+                  <div className="leading-7">
+                    <h3 className="text-3xl font-semibold text-white">
+                      {card.name}
+                    </h3>
+                    <p className="text-md mt-2 text-white">
+                      {card.description}
+                    </p>
+                  </div>
+                  <button className="flex items-center mt-4 text-white text-sm uppercase font-medium rounded hover:underline focus:outline-none">
+                    <span>Learn More</span>
+                    <svg
+                      className="h-5 w-5 mx-2"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* End About Section */}
+      {/* Encounters Section */}
+      <section className="p-4">
+        <div
+          className="w-full h-96 mt-8 rounded-md overflow-hidden bg-cover bg-center md:mt-0"
+          style={{
+            backgroundImage: `url(/home_encounters_section.jpg)`,
+          }}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+          <div className="bg-gray-900 bg-opacity-50 flex items-center h-full">
+            <div className="px-10 max-w-xl">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl text-white font-semibold">
+                Encounters
+              </h2>
+              <p className="mt-2 text-gray-400">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Tempore facere provident molestias ipsam sint voluptatum
+                pariatur.
+              </p>
+              <button className="flex items-center mt-4 text-white text-sm uppercase font-medium rounded hover:underline focus:outline-none">
+                <span>View All</span>
+                <svg
+                  className="h-5 w-5 mx-2"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* End Encounters Section */}
+      {/* Giving Section */}
+      <section className="p-4">
+        <div
+          className="w-full h-96 mt-8 rounded-md overflow-hidden bg-cover bg-bottom md:mt-0"
+          style={{
+            backgroundImage: `url(/home_giving_section.jpg)`,
+          }}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+          <div className="bg-gray-900 bg-opacity-50 flex items-center h-full">
+            <div className="px-10 max-w-xl">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl text-white font-semibold">
+                Giving
+              </h2>
+              <p className="mt-2 text-gray-400">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Tempore facere provident molestias ipsam sint voluptatum
+                pariatur.
+              </p>
+              <button className="flex items-center mt-4 text-white text-sm uppercase font-medium rounded hover:underline focus:outline-none">
+                <span>Give now</span>
+                <svg
+                  className="h-5 w-5 mx-2"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-  )
+  );
 }
