@@ -38,7 +38,6 @@ export default function Home() {
               </span>{" "}
               to this generation
             </h1>
-  
           </div>
           <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
             <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
@@ -102,50 +101,36 @@ export default function Home() {
       </div>
       {/* About Section */}
       <section className="p-4">
-        <div className="relative isolate rounded-md overflow-hiddenpy-24 sm:py-32">
-          <Image
-            src="/home_about_section.jpg"
-            alt=""
-            height="100"
-            width="200"
-            className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center"
-          />
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl lg:mx-0">
-              <h2 className="text-4xl font-bold tracking-tight text-white">
-                Learn about Light Night
+        <div
+          className="w-full h-96 mt-8 rounded-md overflow-hidden bg-cover bg-center md:mt-0"
+          style={{
+            backgroundImage: `url(/home_about_section.jpg)`,
+          }}
+        >
+          <div className="bg-gray-900 bg-opacity-50 flex items-center h-full">
+            <div className="px-10 max-w-xl">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl text-white font-semibold">
+                Learn About Light Night
               </h2>
-            </div>
-            <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8 backdrop-blur-sm">
-              {cards.map((card) => (
-                <div
-                  key={card.name}
-                  className="flex flex-col gap-x-4 rounded-xl bg-white/5 p-6 ring-1 ring-inset ring-white/10"
+              <p className="mt-2 text-gray-400">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Tempore facere provident molestias ipsam sint voluptatum
+                pariatur.
+              </p>
+              <button className="flex items-center mt-4 text-white text-sm uppercase font-medium rounded hover:underline focus:outline-none">
+                <span>View All</span>
+                <svg
+                  className="h-5 w-5 mx-2"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <div className="leading-7">
-                    <h3 className="text-3xl font-semibold text-white">
-                      {card.name}
-                    </h3>
-                    <p className="text-md mt-2 text-white">
-                      {card.description}
-                    </p>
-                  </div>
-                  <button className="flex items-center mt-4 text-white text-sm uppercase font-medium rounded hover:underline focus:outline-none">
-                    <span>Learn More</span>
-                    <svg
-                      className="h-5 w-5 mx-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
-                </div>
-              ))}
+                  <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
