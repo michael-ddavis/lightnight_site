@@ -11,7 +11,7 @@ export default function encounters() {
           alt=""
           width="505"
           height="100"
-          className="object-center w-full object-cover lg:h-96 brightness-50"
+          className="object-center w-full object-cover h-56 sm:h-64 md:h-72 lg:h-96 brightness-50"
         />
         <h1 className="absolute text-2xl md:text-4xl lg:text-6xl text-white font-bold uppercase tracking-wide top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           Encounters

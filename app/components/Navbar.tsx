@@ -18,7 +18,7 @@ let navigation: navigationPieces[] = [
   { name: "Home", href: "/", current: true },
   { name: "About", href: "/about", current: false },
   { name: "Encounters", href: "/encounters", current: false },
-  { name: "Give", href: "/give", current: false },
+  { name: "Give", href: "/giving", current: false },
 ];
 
 function classNames(...classes: any[]) {
