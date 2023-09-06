@@ -19,6 +19,7 @@ let navigation: navigationPieces[] = [
   { name: "About", href: "/about", current: false },
   { name: "Encounters", href: "/encounters", current: false },
   { name: "Give", href: "/giving", current: false },
+  { name: "Contact", href: "/contact", current: false },
 ];
 
 function classNames(...classes: any[]) {
@@ -35,7 +36,7 @@ export default function Navbar() {
           className="mx-auto flex max-w-7xl items-center justify-between px-6 pb-6 pt-6 lg:px-8"
           aria-label="Global"
         >
-          <div className="flex flex-1 items-center">
+          <div className="flex flex-1 items-center justify-between">
             <div className="flex w-full items-center justify-between lg:w-auto">
               <Link href="/">
                 <Image
@@ -90,7 +91,13 @@ export default function Navbar() {
             <div className="overflow-hidden bg-white shadow-lg ring-1 ring-black ring-opacity-5 h-max">
               <div className="flex items-center justify-between px-5 pt-4">
                 <div>
-                  <Image className="h-6 w-auto" src="/light_logo.png" height="60" width="205" alt="" />
+                  <Image
+                    className="h-6 w-auto"
+                    src="/light_logo.png"
+                    height="60"
+                    width="205"
+                    alt=""
+                  />
                 </div>
                 <div className="-mr-2">
                   <Popover.Button className="relative inline-flex items-center justify-center rounded-md bg-blue-800 p-2 text-white hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-800">

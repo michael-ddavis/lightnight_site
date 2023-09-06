@@ -6,29 +6,29 @@ interface faqPieces {
   scripture_id: number
   question: string;
   answer: string;
-  scriptures?: string[];
+  scriptures: string[];
 }
 
 const faqs: faqPieces[] = [
   {
     id: 1,
-    scripture_id: 100,
+    scripture_id: 2,
     question: "The Bible",
     answer:
       "The Bible is God’s Word to all people. It was written by human authors under the supernatural guidance of the Holy Spirit. Because it was inspired by God, the Bible is truth without any mixture of error and is completely relevant to our daily lives.",
     scriptures: ["Genesis 1:1", "Genesis 1:2", "Hebrews 4:12"],
   },
   {
-    id: 2,
-    scripture_id: 200,
+    id: 3,
+    scripture_id: 4,
     question: "The Father",
     answer:
       "We believe in God the Father, the creator of all things, an infinite, personal spirit, perfect in holiness, wisdom, power and love. We believe that He concerns Himself mercifully in the affairs of His children, He hears and answers prayer, and that He saves from sin and death all who come to Him through Jesus Christ.",
     scriptures: ["Genesis 1:1", "John 3:16-17", "John 4:24"],
   },
   {
-    id: 3,
-    scripture_id: 300,
+    id: 5,
+    scripture_id: 6,
     question: "Jesus",
     answer:
       "We believe in Jesus Christ, God's only begotten Son, conceived by the Holy Spirit. We believe in His virgin birth, sinless life, miracles, and teachings. We believe that through His death, burial and resurrection He fulfilled prophecy, atoned for the sins of mankind and established His divine church so that all who trust in Him may receive redemption and salvation.",
@@ -37,8 +37,8 @@ const faqs: faqPieces[] = [
     ],
   },
   {
-    id: 4,
-    scripture_id: 400,
+    id: 8,
+    scripture_id: 8,
     question: "The Holy Spirit",
     answer:
       "We believe in the Holy Spirit who came forth from the Father and the Son to convict the world of sin, righteousness and judgment. It is His work to indwell, sanctify, empower for service and seal until redemption all who believe in Jesus Christ. We believe that the Holy Spirit indwells every believer in Christ and that He is an abiding helper, teacher and guide.",
@@ -126,7 +126,7 @@ export default function About() {
                     {faq.answer}
                   </dd>
                   <div className="sm:flex mt-2">
-                  {faq.scriptures?.map((scripture) => (
+                  {faq.scriptures.map((scripture) => (
                     <div key={faq.scripture_id} className="text-gray-900 text-base bg-gray-300 px-2 py-1 sm:rounded-lg mr-2 mt-2 sm:mt-0">{scripture}</div>
                   ))}
                   </div>

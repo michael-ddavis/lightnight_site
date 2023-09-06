@@ -1,6 +1,64 @@
 import Link from "next/link";
 import Image from "next/image";
 
+interface Encounter {
+  id: number;
+  image: string;
+  title: string;
+  church: string;
+  location: string;
+  location_url: string;
+  time: string;
+}
+
+const encountersList: Encounter[] = [
+  {
+    id: 1,
+    image: "/worship_night_1.png",
+    title: "Fri, Sept 8th • Richmond, VA",
+    church: "LUX Church",
+    location: "22 E Leigh St, Richmond, VA, 23219",
+    location_url: "https://goo.gl/maps/XfFqvjpgPaP92aff6",
+    time: "7pm - 10pm",
+  },
+  {
+    id: 2,
+    image: "/next_gen_rally.png",
+    title: "Fri, Oct 6th • Richmond, VA",
+    church: "Meadowood Church Of God",
+    location: "325 Azalea Ave, Richmond, VA 23227",
+    location_url: "https://goo.gl/maps/xCkMYeetBdTeo8K89",
+    time: "7pm - 10pm",
+  },
+  {
+    id: 3,
+    image: "/prayer_night_nov.png",
+    title: "Fri Nov 3rd • Midlothian, VA",
+    church: "Winfree Baptist",
+    location: "13617 Midlothian Tpke, Midlothian, VA 23113",
+    location_url: "https://goo.gl/maps/nWec6ZtgHRSo9S4C8",
+    time: "7pm - 8:30pm",
+  },
+  {
+    id: 4,
+    image: "/prayer_night_jan.png",
+    title: "Fri Jan 19th • Midlothian, VA",
+    church: "LUX Church",
+    location: "22 E Leigh St, Richmond, VA, 23219",
+    location_url: "https://goo.gl/maps/XfFqvjpgPaP92aff6",
+    time: "7pm - 8:30pm",
+  },
+  {
+    id: 5,
+    image: "/feb_wrshp_night.png",
+    title: "Fri Feb 23rd • Midlothian, VA",
+    church: "Winfree Baptist",
+    location: "13617 Midlothian Tpke, Midlothian, VA 23113",
+    location_url: "https://goo.gl/maps/nWec6ZtgHRSo9S4C8",
+    time: "7pm - 10pm",
+  },
+];
+
 export default function encounters() {
   return (
     <main className="bg-white">
@@ -18,91 +76,41 @@ export default function encounters() {
         </h1>
       </div>
 
-      <div className="relative overflow-hidden py-12 sm:py-24 text-gray-400">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <section className="relative bg-blueGray-50">
-            <div className="items-center flex flex-wrap">
-              <div className="w-full h-full sm:w-9/12 md:w-7/12 ml-auto mr-auto">
-                <Image
-                  alt="..."
-                  height="500"
-                  width="1000"
-                  className="rounded-lg shadow-lg object-fit"
-                  src="/worship_night.jpg"
-                />
-              </div>
-              <div className="w-full md:w-5/12 ml-auto mr-auto px-4 md:pl-8 py-4">
-                <div className="md:pr-12">
-                  <h3 className="text-2xl font-semibold">
-                    Sept 8th • Richmond, VA
-                  </h3>
-                  <p className="mt-4 text-base md:text-lg leading-relaxed text-blueGray-500">
-                    The extension comes with three pre-built pages to help you
-                    get started faster. You can change the text and images and
-                    you&apos;re good to go.
-                  </p>
-                  <button className="flex items-center mt-4 text-indigo-500 text-sm uppercase font-medium rounded hover:underline focus:outline-none">
-                    <span>More Info</span>
-                    <svg
-                      className="h-5 w-5 mx-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
-                </div>
+      <div className="relative mx-auto max-w-6xl py-12 sm:py-2 md:py-8 lg:py-12 px-4 lg:px-8">
+        {encountersList.map((encounter) => (
+          <div key={encounter.id}>
+            <div className="items-center flex flex-wrap my-8">
+              <Image
+                alt="..."
+                height="500"
+                width="1000"
+                className="rounded-lg shadow-lg object-fit w-full h-full sm:w-9/12 md:w-7/12 lg:w-6/12 ml-auto mr-auto"
+                src={encounter.image}
+              />
+              <div className="w-full md:w-5/12 ml-auto mr-auto md:pl-8 py-4">
+                <h3 className="text-2xl md:text-3xl font-semibold text-gray-700">
+                  {encounter.title}
+                </h3>
+                <p className="text-xl md:text-2xl font-medium text-gray-600">
+                  {encounter.church}
+                </p>
+                <p className="mt-2 text-base md:text-lg leading-relaxed text-black">
+                  <span className="font-semibold">Location:</span>{" "}
+                  <Link
+                    href={encounter.location_url}
+                    target="_blank"
+                    className="text-blue-700"
+                  >
+                    {encounter.location}
+                  </Link>
+                </p>
+                <p className="mt-2 text-base md:text-lg leading-relaxed text-black">
+                  <span className="font-semibold">Time:</span> {encounter.time}
+                </p>
               </div>
             </div>
-          </section>
-        </div>
-      </div>
-      <div className="relative overflow-hidden pb-8 sm:pb-16 text-gray-400">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <section className="relative bg-blueGray-50">
-            <div className="items-center flex flex-wrap">
-              <div className="w-full h-full sm:w-9/12 md:w-6/12 ml-auto mr-auto">
-                <Image
-                  alt="..."
-                  height="500"
-                  width="1000"
-                  className="rounded-lg shadow-lg object-fit"
-                  src="/rally.jpeg"
-                />
-              </div>
-              <div className="w-full md:w-6/12 ml-auto mr-auto px-4 md:pl-8 py-4">
-                <div className="md:pr-12">
-                  <h3 className="text-2xl font-semibold">
-                    Oct 6th • Ashland, VA
-                  </h3>
-                  <p className="mt-4 text-base md:text-lg leading-relaxed text-blueGray-500">
-                    The extension comes with three pre-built pages to help you
-                    get started faster. You can change the text and images and
-                    you&apos;re good to go.
-                  </p>
-                  <button className="flex items-center mt-4 text-indigo-500 text-sm uppercase font-medium rounded hover:underline focus:outline-none">
-                    <span>More Info</span>
-                    <svg
-                      className="h-5 w-5 mx-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
+          </div>
+        ))}
       </div>
     </main>
   );

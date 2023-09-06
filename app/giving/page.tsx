@@ -24,9 +24,9 @@ export default function Giving() {
             <p className="text-xl text-center leading-8 text-gray-700">
               As we continue to move forward with bringing a move of God to this
               generation, we need support. Your giving contributes to booking
-              worship spaces, blessing our volunteers, the host church and
+              worship spaces, blessing our volunteers, and
               purchasing audio equipment to ensure that we operate in
-              excellence.
+              excellence and begin traveling to different places with our own equipment.
             </p>
           </div>
           <div className="flex flex-row justify-center items-center p-16">
@@ -64,8 +64,8 @@ export default function Giving() {
                 Our first goal is to aquire the necessary audio equipment to be
                 able to take our worship nights to any church or venue with
                 ease. Having the right equipment will ensure that our services
-                are help in excellence for those in person and online. For
-                everything that we need, we will need{" "}
+                are held in excellence for those in person and online. The
+                approximate cost for everything, long term will be{" "}
                 <span className="font-semibold">~$40,000</span>
               </p>
               <ul role="list" className="mt-8 max-w-xl space-y-8 text-gray-600">

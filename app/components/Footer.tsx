@@ -6,17 +6,16 @@ interface navigationPieces {
 }
 
 let navigation: navigationPieces[] = [
-  { name: "About", href: "#" },
-  { name: "Our Vision", href: "#" },
-  { name: "Our Beliefs", href: "#" },
-  { name: "Encounters", href: "#" },
-  { name: "Give", href: "#" },
+  { name: "About", href: "/about" },
+  { name: "Encounters", href: "/encounters" },
+  { name: "Give", href: "/giving" },
+  { name: "Contact Us", href: "/contact" },
 ];
 
 export default function Footer() {
   return (
     <footer className="bg-white sticky top-[100vh]">
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-10 sm:py-24 lg:px-2">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-10 sm:py-12 lg:px-2">
         <nav
           className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
