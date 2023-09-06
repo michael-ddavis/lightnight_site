@@ -145,7 +145,7 @@ export default function About() {
           <div className="grid gap-1 sm:gap-2 lg:gap-4">
             <Image
               className="h-auto max-w-full rounded-lg"
-              src="/about_tile_6.jpg"
+              src="/about_tile_6.JPG"
               alt=""
               width="1000"
               height="500"
@@ -189,7 +189,7 @@ export default function About() {
             />
             <Image
               className="h-auto max-w-full rounded-lg"
-              src="/about_tile_2.jpg"
+              src="/about_tile_2.JPG"
               alt=""
               width="1000"
               height="500"
@@ -205,7 +205,7 @@ export default function About() {
           <div className="grid gap-1 sm:gap-2 lg:gap-4">
             <Image
               className="h-auto max-w-full rounded-lg"
-              src="/about_tile_7.jpg"
+              src="/about_tile_7.JPG"
               alt=""
               width="1000"
               height="500"
@@ -219,14 +219,14 @@ export default function About() {
             />
             <Image
               className="h-auto max-w-full rounded-lg"
-              src="/about_tile_8.jpg"
+              src="/about_tile_8.JPG"
               alt=""
               width="1000"
               height="500"
             />
             <Image
               className="h-auto max-w-full rounded-lg"
-              src="/about_tile_9.jpg"
+              src="/about_tile_9.JPG"
               alt=""
               width="500"
               height="500"
@@ -242,14 +242,14 @@ export default function About() {
             />
             <Image
               className="h-auto max-w-full rounded-lg"
-              src="/about_tile_14.jpg"
+              src="/about_tile_14.JPG"
               alt=""
               width="1000"
               height="700"
             />
             <Image
               className="h-auto max-w-full rounded-lg"
-              src="/about_tile_13.jpg"
+              src="/about_tile_13.JPG"
               alt=""
               width="1000"
               height="700"
