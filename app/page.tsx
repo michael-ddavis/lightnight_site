@@ -53,7 +53,7 @@ export default function Home() {
               <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
                 <h1 className="text-4xl text-center sm:text-left font-bold tracking-tight text-gray-700 sm:text-6xl mx-4 mt-12 md:mx-0 md:mt-0 ">
                   We’re pursuing <span className="text-blue-700">Jesus</span>,
-                  advancing <span className="text-orange-500">Revival</span> and
+                  advancing His <span className="text-orange-500">Kingdom</span> and
                   taking His{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500 animate-gradient-x">
                     Presence
