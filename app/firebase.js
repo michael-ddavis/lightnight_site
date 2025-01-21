@@ -1,4 +1,20 @@
 import * as firebase from 'firebase';
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  serverTimestamp, 
+  getDocs, 
+  updateDoc, 
+  DocumentData
+} from "firebase/firestore";
+import { 
+  getDownloadURL, 
+  getStorage, 
+  ref, 
+  updateMetadata, 
+  uploadBytes 
+} from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: process.env.API_KEY,
@@ -10,6 +26,10 @@ const firebaseConfig = {
     measurementId: process.env.MEASUREMENT_ID
   };
 
-firebase.initializeApp(firebaseConfig);
+  const app = firebase.initializeApp(firebaseConfig);
+  // Initialize Cloud Storage and get a reference to the service
+  const storage = getStorage(app);
+  // Initialize Firestore Database
+  const db = getFirestore(app);
 
-export default firebase;
+export default {app, storage, db};
