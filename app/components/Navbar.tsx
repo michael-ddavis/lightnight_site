@@ -5,172 +5,265 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 
-interface navigationPieces {
-  name: string;
-  href: string;
-  current: boolean;
-}
+type NavItem =
+  | {
+      type: "link";
+      name: string;
+      href: string;
+    }
+  | {
+      type: "menu";
+      name: string;
+      href: string; // parent anchor (About)
+      children: { name: string; href: string }[];
+    };
 
-let navigation: navigationPieces[] = [
-  { name: "Home", href: "/", current: false },
-  { name: "About", href: "/about", current: false },
-  { name: "Encounters", href: "/encounters", current: false },
-  { name: "Give", href: "/giving", current: false },
-  { name: "Contact", href: "/contact", current: false },
+const navItems: NavItem[] = [
+  {
+    type: "menu",
+    name: "About",
+    href: "/about",
+    children: [
+      { name: "About Alabaster", href: "/about" },
+      { name: "What We Believe", href: "/beliefs" },
+    ],
+  },
+  { type: "link", name: "Light Night", href: "/light-night" },
+  { type: "link", name: "Formation", href: "/formation" },
+  { type: "link", name: "Merch", href: "/merch" },
+  { type: "link", name: "Contact", href: "/contact" },
 ];
 
-function classNames(...classes: any[]) {
+function classNames(...classes: (string | boolean | null | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar() {
   const pathname = usePathname();
 
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(href + "/");
+
   return (
-    <Disclosure as="nav" className="bg-black sticky z-40 top-0">
+    <Disclosure as="nav" className="bg-[#050814]/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-900/60">
       {({ open }) => (
         <>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div className="relative flex items-center justify-between h-16">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-orange-700 hover:bg-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="flex h-16 items-center justify-between">
+              {/* LEFT: Logo (bigger, always left-aligned) */}
+              <div className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-2">
+                  <Image
+                    src="/images/logos/alabaster.svg" // swap this to your transparent Alabaster logo
+                    alt="Alabaster"
+                    width={180}
+                    height={48}
+                    className="h-12 w-auto sm:h-14 lg:h-16"
+                  />
+                </Link>
+              </div>
+
+              {/* DESKTOP NAV */}
+              <div className="hidden md:flex md:flex-1 md:items-center md:justify-end md:gap-6">
+                <div className="flex items-center gap-4 text-xs font-medium">
+                  {navItems.map((item) => {
+                    if (item.type === "link") {
+                      const active = isActive(item.href);
+                      return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(
+                            "relative px-1 py-1 transition-colors",
+                            active
+                              ? "text-[#f4cf88]"
+                              : "text-slate-200 hover:text-[#f4cf88]"
+                          )}
+                        >
+                          <span>{item.name}</span>
+                          {active && (
+                            <span className="pointer-events-none absolute inset-x-0 -bottom-1 mx-auto h-[2px] w-full rounded-full bg-gradient-to-r from-[#f4cf88] via-[#e0c9c1] to-[#f4cf88]" />
+                          )}
+                        </Link>
+                      );
+                    }
+
+                    // About menu with "What We Believe" as sub-item
+                    const activeParent =
+                      isActive(item.href) ||
+                      item.children.some((c) => isActive(c.href));
+
+                    return (
+                      <Menu as="div" className="relative" key={item.name}>
+                        <Menu.Button
+                          className={classNames(
+                            "inline-flex items-center gap-1 px-1 py-1 text-xs font-medium transition-colors",
+                            activeParent
+                              ? "text-[#f4cf88]"
+                              : "text-slate-200 hover:text-[#f4cf88]"
+                          )}
+                        >
+                          <span>{item.name}</span>
+                          <ChevronDownIcon className="h-3.5 w-3.5" />
+                          {activeParent && (
+                            <span className="pointer-events-none absolute inset-x-0 -bottom-1 mx-auto h-[2px] w-full rounded-full bg-gradient-to-r from-[#f4cf88] via-[#e0c9c1] to-[#f4cf88]" />
+                          )}
+                        </Menu.Button>
+
+                        {/* Fade + slide dropdown */}
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-150"
+                          enterFrom="opacity-0 translate-y-1"
+                          enterTo="opacity-100 translate-y-0"
+                          leave="transition ease-in duration-100"
+                          leaveFrom="opacity-100 translate-y-0"
+                          leaveTo="opacity-0 translate-y-1"
+                        >
+                          <Menu.Items className="absolute right-0 mt-2 w-52 origin-top-right rounded-xl border border-slate-800 bg-[#050814] shadow-xl ring-1 ring-black/10 focus:outline-none">
+                            <div className="py-1 text-xs">
+                              {item.children.map((child) => {
+                                const activeChild = isActive(child.href);
+                                return (
+                                  <Menu.Item key={child.name}>
+                                    {({ active }) => (
+                                      <Link
+                                        href={child.href}
+                                        className={classNames(
+                                          "flex items-center justify-between px-3 py-2",
+                                          active
+                                            ? "bg-slate-900/70 text-slate-100"
+                                            : "text-slate-200",
+                                          activeChild &&
+                                            "border-l-2 border-[#f4cf88]"
+                                        )}
+                                      >
+                                        <span>{child.name}</span>
+                                        {activeChild && (
+                                          <span className="h-1.5 w-1.5 rounded-full bg-[#f4cf88]" />
+                                        )}
+                                      </Link>
+                                    )}
+                                  </Menu.Item>
+                                );
+                              })}
+                            </div>
+                          </Menu.Items>
+                        </Transition>
+                      </Menu>
+                    );
+                  })}
+                </div>
+
+                {/* Desktop Give button */}
+                <Link
+                  href="/giving"
+                  className="ml-4 inline-flex items-center rounded-full border border-[#f4cf88]/70 bg-[#e0c9c1] px-4 py-1.5 text-xs font-semibold text-[#050814] shadow-sm hover:brightness-110"
+                >
+                  Give
+                </Link>
+              </div>
+
+              {/* MOBILE: toggle button (logo stays left) */}
+              <div className="flex items-center md:hidden">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-slate-200 hover:bg-slate-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#f4cf88] focus:ring-offset-2 focus:ring-offset-[#050814]">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon className="block h-5 w-5" aria-hidden="true" />
                   ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    <Bars3Icon className="block h-5 w-5" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-              </div>
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-between">
-                <div className="flex-shrink-0 flex items-center">
-                  <Image
-                    className="block lg:hidden h-8 w-auto"
-                    src="/dark_logo.png"
-                    height="500"
-                    width="500"
-                    alt="logo"
-                  />
-                  <Image
-                    className="hidden lg:block h-8 w-auto"
-                    src="/dark_logo.png"
-                    height="500"
-                    width="500"
-                    alt="logo"
-                  />
-                </div>
-                <div className="hidden sm:block sm:ml-6">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-blue-900 text-white"
-                            : "text-gray-300 hover:bg-orange-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* Profile dropdown */}
-                <Menu as="div" className="ml-3 relative">
-                  <Transition
-                    as={Fragment}
-                    enter="transition duration-300 transform"
-                    enterFrom="opacity-0 -translate-y-12"
-                    enterTo="opacity-100 -translate-y-0"
-                    leave="transition duration-300 transform"
-                    leaveFrom="opacity-100 -translate-y-0"
-                    leaveTo="opacity-0 -translate-y-12"
-                  >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Your Profile
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Settings
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Sign out
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
               </div>
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-blue-900 text-white"
-                      : "text-gray-300 hover:bg-orange-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+          {/* MOBILE MENU PANEL */}
+          <Disclosure.Panel className="md:hidden border-t border-slate-900/60 bg-[#050814]">
+            <div className="space-y-1 px-4 pt-3 pb-4 text-sm">
+              {/* About + sublinks stacked */}
+              {navItems.map((item) => {
+                if (item.type === "link") {
+                  const active = isActive(item.href);
+                  return (
+                    <Disclosure.Button
+                      key={item.name}
+                      as={Link}
+                      href={item.href}
+                      className={classNames(
+                        "block rounded-md px-3 py-2",
+                        active
+                          ? "bg-slate-900 text-[#f4cf88]"
+                          : "text-slate-200 hover:bg-slate-900/70 hover:text-slate-50"
+                      )}
+                    >
+                      {item.name}
+                    </Disclosure.Button>
+                  );
+                }
+
+                const activeParent =
+                  isActive(item.href) ||
+                  item.children.some((c) => isActive(c.href));
+
+                return (
+                  <div key={item.name} className="space-y-1">
+                    <Disclosure.Button
+                      as={Link}
+                      href={item.href}
+                      className={classNames(
+                        "flex items-center justify-between rounded-md px-3 py-2",
+                        activeParent
+                          ? "bg-slate-900 text-[#f4cf88]"
+                          : "text-slate-200 hover:bg-slate-900/70 hover:text-slate-50"
+                      )}
+                    >
+                      <span>{item.name}</span>
+                    </Disclosure.Button>
+                    <div className="ml-4 space-y-1 border-l border-slate-800 pl-3">
+                      {item.children.map((child) => {
+                        const activeChild = isActive(child.href);
+                        return (
+                          <Disclosure.Button
+                            key={child.name}
+                            as={Link}
+                            href={child.href}
+                            className={classNames(
+                              "block rounded-md px-3 py-1.5 text-xs",
+                              activeChild
+                                ? "bg-slate-900 text-[#f4cf88]"
+                                : "text-slate-300 hover:bg-slate-900/70 hover:text-slate-50"
+                            )}
+                          >
+                            {child.name}
+                          </Disclosure.Button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Mobile Give button – inline, not giant */}
+              <Disclosure.Button
+                as={Link}
+                href="/giving"
+                className="mt-2 inline-flex w-full items-center justify-center rounded-full border border-[#f4cf88]/70 bg-[#e0c9c1] px-4 py-2 text-xs font-semibold text-[#050814] hover:brightness-110"
+              >
+                Give
+              </Disclosure.Button>
             </div>
           </Disclosure.Panel>
         </>
       )}
     </Disclosure>
   );
-}
-
-{
-  /* <Popover.Button className="focus-ring-inset relative inline-flex items-center justify-center rounded-md bg-slate-900 bg-opacity-0 p-2 text-black hover:bg-opacity-100 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                  <span className="absolute -inset-0.5" />
-                  <span className="sr-only">Open main menu</span>
-                  <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                </Popover.Button> */
 }
