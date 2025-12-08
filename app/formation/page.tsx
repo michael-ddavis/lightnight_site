@@ -124,7 +124,7 @@ const formatBlock: FormatBlock =
     title: "Built to fit real lives.",
     body: "Each track is offered in a simple, flexible format so that people in all seasons can engage:",
     points: [
-      "In-person weekly cohorts",
+      "In-person cohorts",
       "Online course format with weekly meetups",
       "Space for processing, questions, and prayer",
     ],

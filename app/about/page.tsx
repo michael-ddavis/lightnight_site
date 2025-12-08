@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import content from "../../content.config";
+import SpinningSeal from "../components/SpinningSeal";
 
 const aboutConfig = (content as any).about || {};
 const beliefsConfig = (content as any).beliefs || {};
@@ -20,59 +21,60 @@ const doctrinalStatements =
 export default function AboutPage() {
   return (
     <main className="bg-[#050814] text-slate-100 min-h-screen">
-      {/* HERO */}
-      <section className="relative overflow-hidden border-b border-slate-800">
-        {/* Background image */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/about_header.jpg"
-            alt="Alabaster worship"
-            fill
-            priority
-            className="object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-[#050814]/90 to-[#050814]" />
-        </div>
-
-        {/* Glows */}
+            {/* ABOUT HERO */}
+      <section className="border-b border-slate-800 bg-[#050814]">
+                {/* Glows */}
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -left-40 top-10 h-[20rem] w-[20rem] rounded-full bg-[#f4cf88]/45 blur-[130px]" />
           <div className="absolute right-[-5rem] top-24 h-[18rem] w-[18rem] rounded-full bg-[#e0c9c1]/40 blur-[120px]" />
         </div>
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-16 lg:flex-row lg:items-center">
+          {/* LEFT: text block (your existing copy) */}
+          <div className="flex-1 space-y-5">
+            <div className="flex items-center gap-4">
+              <span className="h-px w-10 bg-[#e0c9c1]" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#e0c9c1]">
+                About Alabaster
+              </p>
+            </div>
 
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
-          <div className="inline-flex items-center gap-3">
-            <span className="h-[1px] w-8 bg-[#f4cf88]/70" />
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#e0c9c1]">
-              About Alabaster
-            </p>
-          </div>
-
-          <div className="max-w-3xl">
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl md:text-[2.5rem]">
+            <h1 className="max-w-2xl font-serif text-3xl leading-tight text-slate-50 sm:text-4xl lg:text-5xl">
               Raising a priesthood who{" "}
-              <span className="bg-gradient-to-r from-[#f4cf88] via-[#e0c9c1] to-white bg-clip-text text-transparent">
-                Love Jesus Well
-              </span>
-              .
+              <span className="text-[#f4cf88]">Love Jesus Well.</span>
             </h1>
-            <p className="mt-4 text-sm leading-relaxed text-slate-100/90 sm:text-base">
+
+            <p className="max-w-2xl text-sm sm:text-base text-slate-300">
               Alabaster is a worship and prayer family being formed into a royal
               priesthood — people who minister to Jesus first, are healed in His
               presence, and are sent out carrying His heart.
             </p>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <span className="inline-flex items-center rounded-full border border-slate-600/80 px-4 py-1.5 text-xs text-slate-100">
+                Presence over everything
+              </span>
+              <span className="inline-flex items-center rounded-full border border-slate-600/80 px-4 py-1.5 text-xs text-slate-100">
+                Priests unto Jesus
+              </span>
+              <span className="inline-flex items-center rounded-full border border-slate-600/80 px-4 py-1.5 text-xs text-slate-100">
+                Family, healing &amp; formation
+              </span>
+            </div>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-3 text-xs">
-            <span className="rounded-full border border-slate-700 bg-black/40 px-3 py-1 text-slate-200">
-              Presence over everything
-            </span>
-            <span className="rounded-full border border-slate-700 bg-black/40 px-3 py-1 text-slate-200">
-              Priests unto Jesus
-            </span>
-            <span className="rounded-full border border-slate-700 bg-black/40 px-3 py-1 text-slate-200">
-              Family, healing &amp; formation
-            </span>
+          {/* RIGHT: spinning logo */}
+          <div className="flex-1 flex justify-center lg:justify-end">
+           <SpinningSeal
+                    phrase={
+                      content.home.heroRing.phrase ?? "ALABASTER MINISTRIES LOVE JESUS WELL"
+                    }
+                    logoSrc={content.home.heroRing.logoSrc ?? "/images/logos/spinning-alabaster.svg"}
+                    textColor={content.home.heroRing.textColor ?? "#ffffff"}
+                    speedSeconds={content.home.heroRing.speedSeconds ?? 18}
+                    size={260}
+                    // 👇 leave className empty or only positioning, no shadow / glow
+                    className=""
+                  />
           </div>
         </div>
       </section>

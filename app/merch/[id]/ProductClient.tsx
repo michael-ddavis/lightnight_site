@@ -42,6 +42,10 @@ function centsToDollars(cents: number | undefined): string {
   return (cents / 100).toFixed(2);
 }
 
+function stripHtml(input: string): string {
+  return input.replace(/<\/?[^>]+(>|$)/g, "");
+}
+
 export default function ProductClient({ product }: ProductClientProps) {
   const { id, title, description, tags, images, variants } = product;
 
@@ -146,7 +150,7 @@ export default function ProductClient({ product }: ProductClientProps) {
 
         {description && (
           <div className="pt-2 text-sm leading-relaxed text-slate-200 whitespace-pre-line">
-            {description}
+            {stripHtml(description)}
           </div>
         )}
 

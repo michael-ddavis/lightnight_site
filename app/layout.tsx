@@ -1,3 +1,4 @@
+// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -14,18 +15,20 @@ export const metadata: Metadata = {
 };
 
 function getNextLightNight() {
-  const lightNight = (content as any).lightNight || {};
-  const encounters = (lightNight.encounters || []) as any[];
-
+  const cfg = content as any;
+  const encounters: any[] = cfg.lightNight?.encounters ?? [];
   const now = new Date();
 
   const upcoming = encounters
     .map((e) => ({
       ...e,
-      dateObj: e.dateISO ? new Date(e.dateISO) : null,
+      dateObj: e.startDate ? new Date(e.startDate) : null,
     }))
     .filter((e) => e.dateObj && e.dateObj.getTime() > now.getTime())
-    .sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime())[0];
+    .sort(
+      (a, b) =>
+        (a.dateObj as Date).getTime() - (b.dateObj as Date).getTime()
+    )[0];
 
   return upcoming || null;
 }
@@ -37,22 +40,44 @@ export default function RootLayout({
 }) {
   const nextLightNight = getNextLightNight();
 
+  // dev override: ALWAYS show banner
+  const forceBanner =
+    typeof process !== "undefined" &&
+    process.env.NEXT_PUBLIC_ALWAYS_SHOW_BANNER === "1";
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        {nextLightNight && (
-          <EventBanner
-            id={nextLightNight.id}
-            title="Light Night Worship Night"
-            // Split ISO into date + time string for the helper:
-            date={nextLightNight.dateISO.split("T")[0]}      // "2025-02-22"
-            time="7:00 PM"                                   // or store a time field in config
-            location={`${nextLightNight.locationName} • ${nextLightNight.city}`}
-            href={`/light-night/${nextLightNight.id}`}
-          />
-        )}
+        {/* Sticky shell: banner (if any) + navbar move together */}
+        <div className="sticky top-0 z-50">
+          {nextLightNight && (
+            <EventBanner
+              id={nextLightNight.id}
+              title={
+                nextLightNight.title ?? "Light Night Worship Night"
+              }
+              // Prefer explicit date/time in config, fall back to ISO split
+              date={
+                nextLightNight.date ??
+                nextLightNight.startDate ??
+                ""
+              }
+              time={nextLightNight.time ?? "7:00 PM"}
+              location={
+                nextLightNight.location ??
+                `${nextLightNight.address ?? ""} ${
+                  nextLightNight.city ?? ""
+                }`.trim()
+              }
+              href={`/light-night/${nextLightNight.id}`}
+              forceVisible={forceBanner}
+            />
+          )}
 
-        <Navbar />
+          {/* Navbar is always visible & sticky with the banner */}
+          <Navbar />
+        </div>
+
         {children}
         <Footer />
       </body>

@@ -23,59 +23,70 @@ const content = {
    *  HOME PAGE
    * ======================================================= */
   home: {
-    heroSubtitle:
-      "This is a family learning to love Jesus well — through worship nights, encounters, and a house-of-prayer heart.",
+    heroRing: {
+      phrase: "• LOVE JESUS WELL • ALABASTER MINISTRIES  ",
+      textColor: "#ffffff",
+      dotColor: "#f4cf88",
+      speedSeconds: 18,
+      logoSrc: "/images/logos/spinning-alabaster.svg", // inner mark, no text
+    },
 
-    gallery: {
-      hero: [
-        // Used as background + primary hero image
-        "/Home_worship_night.png",
-        "/home_tile_3.jpg",
-        "/home_tile_2.jpg",
-      ],
-      strip: [
-        "/about_tile_6.JPG",
-        "/about_tile_4.jpg",
-        "/about_tile_7.JPG",
-      ],
+    hero: {
+      superTitle: "Love Jesus Well",
+      titleMain: "Raising a priesthood",
+      titleSub: "formed through worship, prayer, and His Word.",
+      body: "Alabaster is a worship and prayer family learning to love Jesus deeply and love Him well — in His presence, in His Word, and together as a people.",
+      primaryCta: {
+        label: "Learn about Alabaster",
+        href: "/about",
+      },
+      secondaryCta: {
+        label: "Light Night Worship",
+        href: "/light-night",
+      },
+      heroImage: {
+        src: "/images/home/story-1.jpg", // or /images/home/hero-1.jpg etc
+        alt: "Worship night at Alabaster",
+      },
     },
 
     lightNightSection: {
-      body:
-        "Light Night is a simple, presence-first worship night where we slow down, minister to the Lord, and make room for Him to heal, restore, and speak.",
-      primaryCtaLabel: "See upcoming nights",
-      primaryCtaHref: "/light-night",
-      secondaryCtaHref: "/light-night", // used as a circled button “Learn about Light Night”
+      eyebrow: "Light Night Worship",
+      title: "A rhythm of worship & presence.",
+      body: "Monthly worship nights hosted by Alabaster Ministries — space to pour out our oil, welcome anyone hungry for Jesus, and make room for His presence.",
+      ctaLabel: "See all Light Night dates",
+      ctaHref: "/light-night",
     },
 
-    givingSection: {
-      ctaLabel: "Give online",
-      ctaHref: "/giving",
+    aboutTeaser: {
+      eyebrow: "This is Alabaster Ministries",
+      title: "A worship & prayer family learning to Love Jesus Well.",
+      body: "We’re raising up a priesthood formed through worship, prayer, and His Word — a family for the misfit, the hungry, and those longing to belong.",
+      ctaLabel: "Read the full story",
+      ctaHref: "/about",
     },
+
     stories: [
       {
         id: "story-1",
-        image: "/about_tile_10.jpg",
-        person: "Jordan",
-        role: "Worshipper",
+        image: "/images/home/story-1.jpg",
         quote:
-          "I came in exhausted and left feeling like Jesus had actually lifted the weight off my chest.",
+          "I came in heavy and left breathing again — like Jesus actually lifted something off of me.",
+        source: "Stories from the room",
       },
       {
         id: "story-2",
-        image: "/about_tile_15.jpg",
-        person: "Samantha",
-        role: "Volunteer",
+        image: "/images/home/story-2.jpg",
         quote:
-          "In the room, I finally believed God wasn’t disappointed in me. It’s changed how I pray.",
+          "Somewhere in the worship, I realized I wasn’t just in a room — I was really with Him.",
+        source: "Stories from the room",
       },
       {
         id: "story-3",
-        image: "/about_tile_13.JPG",
-        person: "Marcus",
-        role: "Friend of a friend",
+        image: "/images/home/story-3.jpg",
         quote:
-          "I didn’t plan to meet Jesus here, but He met me in the middle of a song.",
+          "I didn’t feel like I had to perform here. I could just be with Jesus and be honest.",
+        source: "Stories from the room",
       },
     ],
   },
@@ -83,7 +94,7 @@ const content = {
   /* =========================================================
    *  ABOUT / OUR STORY
    * ======================================================= */
-   about: {
+  about: {
     coreLanguage: {
       whyAlabaster:
         "Alabaster is a family built around one central pursuit: loving Jesus deeply and loving Him well. We exist to raise up a priesthood of believers who minister first to the Lord and then to the world.",
@@ -189,7 +200,8 @@ const content = {
     event: {
       id: "rigsby-dec-12",
       title: "Jesus Over Everything – Worship Night",
-      date: "2025-12-12",
+      dateISO: "2025-12-12T19:00:00Z",
+      date: "2025-12-13",
       time: "7:00 PM",
       location: "6421 Rigsby Rd, Richmond, VA",
       buttonLabel: "See details",
@@ -197,14 +209,13 @@ const content = {
     },
   },
 
-
   /* =========================================================
-   *  LIGHT NIGHT 
+   *  LIGHT NIGHT
    * ======================================================= */
   lightNight: {
     // Used across /light-night and the home Light Night section
-     hero: {
-      title: "Light Night Worship Nights",
+    hero: {
+      title: "Light Night Worship",
       subtitle:
         "Monthly worship nights where we gather as a family and with friends to seek Jesus, pour out our oil, and Love Him well.",
     },
@@ -214,18 +225,27 @@ const content = {
         title: "Jesus Over Everything",
         church: "Divine World Changers",
         dateLabel: "Fri, Dec 12 • 7–9 PM",
-        location: "6421 Rigsby Rd, Richmond, VA",
-        location_url: "https://maps.app.goo.gl/R74C5oprTP3wW3MD6",
-        // ISO string used to compute “next upcoming” on the home page
-        startDate: "2025-12-12T19:00:00-05:00",
-        // Used for the featured hero-style card in the Light Night block on home
-        homeImage: "/images/light-night/dec-worship-night.png",
+        location: "6421 Rigsby Rd",
         city: "Richmond, VA",
-        address: "6421 Rigsby Rd, Richmond, VA",
         mapsUrl: "https://maps.app.goo.gl/R74C5oprTP3wW3MD6",
-        flyerImage: "/images/light-night/dec-worship-night.png", // 1920x1080
+        flyerImage: "/images/light-night/dec-worship-night.png",
+        startDate: "2025-12-12T19:00:00-05:00", // ISO for countdown
         description:
           "A night set apart to worship Jesus together as a family, pour out our oil, and make room for His presence.",
+        setlist: [
+          {
+            title: "My Reward",
+            artist: "UPPERROOM",
+            album: "Moments: Color 003",
+            albumArt: "/images/setlist/my-reward.jpg",
+          },
+          {
+            title: "The Wonderful Blood",
+            artist: "Tiffany Hudson",
+            album: "Hidden Here",
+            albumArt: "/images/setlist/wonderful-blood.jpg",
+          },
+        ],
       },
     ],
   },
@@ -294,7 +314,7 @@ const content = {
     ],
   },
 
-    /* =========================================================
+  /* =========================================================
    *  MERCH
    * ======================================================= */
   merch: {
@@ -415,7 +435,7 @@ const content = {
       title: "Built to fit real lives.",
       body: "Each track is offered in a simple, flexible format so that people in all seasons can engage:",
       points: [
-        "In-person weekly cohorts",
+        "In-person cohorts",
         "Online course format with weekly meetups",
         "Space for processing, questions, and prayer",
       ],
@@ -440,10 +460,9 @@ const content = {
     },
   },
 
-  
   /* =========================================================
-  *  CONTACT 
-  * ======================================================= */
+   *  CONTACT
+   * ======================================================= */
   contact: {
     // Primary inbox for general inquiries
     primaryEmail: "hello@alabasterchurch.org",
@@ -464,9 +483,9 @@ const content = {
   },
 
   /* =========================================================
-  *  FOOTER
-  *  Used by the global <Footer /> component
-  * ======================================================= */
+   *  FOOTER
+   *  Used by the global <Footer /> component
+   * ======================================================= */
   footer: {
     tagline: "Loving Jesus deeply. Loving Him well.",
     blurb:
@@ -481,7 +500,7 @@ const content = {
       city: "Richmond",
       state: "VA",
       postalCode: "",
-      country: "USA"
+      country: "USA",
     },
 
     contact: {
@@ -490,17 +509,17 @@ const content = {
       phoneLabel: "Phone",
       phone: "",
       // optional: small line under email/phone
-      note: "For gatherings, serving, and formation tracks, reach out any time."
+      note: "For gatherings, serving, and formation tracks, reach out any time.",
     },
 
     social: {
       instagram: {
         handle: "@alabasterministriesofficial",
-        url: "https://instagram.com/alabasterministriesofficial"
+        url: "https://instagram.com/alabasterministriesofficial",
       },
       // Add others later if you want (YouTube, Facebook, etc.)
       youtube: null,
-      facebook: null
+      facebook: null,
     },
 
     nav: {
@@ -511,7 +530,7 @@ const content = {
         { label: "Formation / Tracks", href: "/formation" },
         { label: "Merch", href: "/merch" },
         { label: "Light Night", href: "/light-night" },
-        { label: "Prayer Room", href: "/prayer-room" } // you can create this later
+        { label: "Prayer Room", href: "/prayer-room" }, // you can create this later
       ],
       // smaller, utility-style links
       secondary: [
@@ -519,22 +538,21 @@ const content = {
         { label: "Contact", href: "/contact" },
         // { label: "Privacy Policy", href: "/privacy" },
         // { label: "Terms", href: "/terms" }
-      ]
+      ],
     },
 
     scripture: {
       text: "We’re not building programs. We’re raising a priesthood. A family that lives for His presence and carries His heart to the world.",
-      reference: "Alabaster Way of Life"
+      reference: "Alabaster Way of Life",
     },
 
     copyright: {
       prefix: "©",
       owner: "Alabaster",
       // optional: or new Date().getFullYear() in the component
-      yearFallback: 2025
-    }
-  }
-
+      yearFallback: 2025,
+    },
+  },
 } as const;
 
 export default content;

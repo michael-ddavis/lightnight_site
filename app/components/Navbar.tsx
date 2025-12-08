@@ -53,7 +53,7 @@ export default function Navbar() {
       : pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <Disclosure as="nav" className="bg-[#050814]/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-900/60">
+    <Disclosure as="nav" className="bg-[#050814]/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-900/60">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

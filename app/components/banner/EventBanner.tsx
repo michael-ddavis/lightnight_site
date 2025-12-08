@@ -1,3 +1,4 @@
+// app/components/banner/EventBanner.tsx
 "use client";
 
 import React from "react";
@@ -8,10 +9,11 @@ import { toISO } from "./datetimeUtil";
 type EventBannerProps = {
   id: string;
   title: string;
-  date: string;       // e.g. "2025-02-22"
-  time: string;       // e.g. "7:00 PM"
+  date: string;     // "2025-12-10"
+  time: string;     // "7:00 PM"
   location: string;
-  href: string;       // where "See details" goes, e.g. `/light-night/2025-02-22-midlothian`
+  href: string;     // e.g. `/light-night/rigsby-dec-12`
+  forceVisible?: boolean; // dev override
 };
 
 export default function EventBanner({
@@ -21,63 +23,49 @@ export default function EventBanner({
   time,
   location,
   href,
+  forceVisible = false,
 }: EventBannerProps) {
   const key = `bannerDismissed:${id}`;
 
-  const [open, setOpen] = React.useState(() => {
-    if (typeof window === "undefined") return true;
-    try {
-      return !localStorage.getItem(key);
-    } catch {
-      return true;
-    }
-  });
+  // Basic open/closed state
+  const [open, setOpen] = React.useState<boolean>(true);
 
-  const targetISO = React.useMemo(() => toISO(date, time), [date, time]);
+  // On mount, read localStorage (unless forceVisible)
+  React.useEffect(() => {
+    if (forceVisible) {
+      setOpen(true);
+      return;
+    }
+
+    try {
+      if (typeof window !== "undefined") {
+        const dismissed = window.localStorage.getItem(key);
+        if (dismissed) setOpen(false);
+      }
+    } catch {
+      // ignore
+    }
+  }, [forceVisible, key]);
+
+  // Countdown
+  const targetISO = date;
   const left = useCountdown(targetISO);
 
-  // Only show inside the 5-day window before event start
+  // Only show inside 5-day window unless forced
   const withinFiveDays = !left.over && left.days <= 5;
+  const shouldShow = open && (forceVisible || withinFiveDays);
 
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  if (!shouldShow) return null;
 
-  React.useEffect(() => {
-    const root = document.documentElement;
-
-    const setVar = () => {
-      const h = open && withinFiveDays && ref.current ? ref.current.offsetHeight : 0;
-      root.style.setProperty("--banner-h", `${h}px`);
-    };
-
-    setVar();
-
-    const ro = new ResizeObserver(setVar);
-    if (ref.current) ro.observe(ref.current);
-
-    window.addEventListener("resize", setVar);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", setVar);
-      if (!open || !withinFiveDays) {
-        document.documentElement.style.setProperty("--banner-h", "0px");
-      }
-    };
-  }, [open, withinFiveDays]);
-
-  // If dismissed, event is over, or we're more than 5 days out → show nothing
-  if (!open || !withinFiveDays) return null;
-
-  const dateLabel = new Date(date).toLocaleDateString(undefined, {
+  const dateObj = new Date(targetISO);
+  const dateLabel = dateObj.toLocaleDateString(undefined, {
     weekday: "short",
     month: "short",
     day: "numeric",
   });
 
   return (
-    <div
-      ref={ref}
-      className="sticky top-0 z-50 w-full bg-[#1E2A78]/90 text-white/90 ring-1 ring-[#f4cf88]/20 backdrop-blur-lg py-2"
-    >
+    <div className="w-full bg-[#1E2A78]/90 text-white/90 ring-1 ring-[#f4cf88]/20 backdrop-blur-lg py-2">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-1 sm:flex-nowrap sm:px-6 lg:px-8">
         <span className="rounded-full bg-[#f4cf88] px-2.5 py-0.5 text-[11px] font-bold text-[#050814]">
           UPCOMING
@@ -95,7 +83,10 @@ export default function EventBanner({
             {location}
           </div>
           {!left.over && (
-            <div className="mt-1 text-[11px] text-[#f4cf88]">
+            <div
+              className="mt-1 text-[11px] text-[#f4cf88]"
+              suppressHydrationWarning
+            >
               Starts in {left.days}d {left.hours}h {left.minutes}m {left.seconds}s
             </div>
           )}
@@ -112,10 +103,11 @@ export default function EventBanner({
         <button
           onClick={() => {
             try {
-              localStorage.setItem(key, "1");
+              if (typeof window !== "undefined") {
+                window.localStorage.setItem(key, "1");
+              }
             } catch {}
             setOpen(false);
-            document.documentElement.style.setProperty("--banner-h", "0px");
           }}
           aria-label="Close banner"
           className="ml-1 rounded-md border border-white/20 px-2 py-1 text-[11px] text-white/70 hover:bg-white/10"
