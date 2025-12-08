@@ -8,13 +8,17 @@ export type TimeLeft = {
   over: boolean;
 };
 
-export default function useCountdown(targetISO: string): TimeLeft {
-  const calc = (): TimeLeft => {
-    const target = new Date(targetISO).getTime();
+export default function useCountdown(targetISO?: string | null): TimeLeft {
+  const calc = React.useCallback((): TimeLeft => {
+    if (!targetISO) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, over: true };
+    }
+
+    const target = Date.parse(targetISO);
     const now = Date.now();
     const diff = target - now;
 
-    if (isNaN(target) || diff <= 0) {
+    if (!Number.isFinite(target) || diff <= 0) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0, over: true };
     }
 
@@ -24,14 +28,14 @@ export default function useCountdown(targetISO: string): TimeLeft {
     const seconds = Math.floor((diff % 60000) / 1000);
 
     return { days, hours, minutes, seconds, over: false };
-  };
+  }, [targetISO]);
 
-  const [left, setLeft] = React.useState<TimeLeft>(calc);
+  const [left, setLeft] = React.useState<TimeLeft>(() => calc());
 
   React.useEffect(() => {
     const id = setInterval(() => setLeft(calc()), 1000);
     return () => clearInterval(id);
-  }, [targetISO]);
+  }, [calc]);
 
   return left;
 }
