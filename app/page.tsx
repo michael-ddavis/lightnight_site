@@ -139,7 +139,7 @@ export default function HomePage() {
                     className="inline-flex items-center gap-2 rounded-full border border-[#f4cf88]/80 bg-[#e0c9c1] px-5 py-2 text-xs font-semibold text-[#050814] shadow-[0_0_28px_rgba(250,204,21,0.32)] transition hover:brightness-110"
                   >
                     Learn about Alabaster
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true">→</span>
                   </Link>
                   <Link
                     href="/light-night"
@@ -208,7 +208,7 @@ export default function HomePage() {
                     className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-4 py-1.5 text-[11px] font-semibold text-slate-200 hover:border-[#f4cf88] hover:text-[#f4cf88]"
                   >
                     Read the full story
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true">→</span>
                   </Link>
                   <Link
                     href="/formation"
@@ -270,7 +270,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-4 py-1.5 text-[11px] font-semibold text-slate-200 hover:border-[#f4cf88] hover:text-[#f4cf88]"
               >
                 View all Light Night dates
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">→</span>
               </Link>
             </div>
 

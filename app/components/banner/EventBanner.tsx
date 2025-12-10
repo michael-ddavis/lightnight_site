@@ -129,7 +129,7 @@ export default function EventBanner({
           className="inline-flex items-center gap-2 rounded-full border border-[#f4cf88]/70 bg-[#e0c9c1] px-3 py-1.5 text-[11px] font-semibold text-[#050814] shadow-[0_0_18px_rgba(250,204,21,0.3)] transition hover:brightness-110"
         >
           See details
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true">→</span>
         </Link>
 
         <button

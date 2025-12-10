@@ -135,7 +135,7 @@ export default function LightNightPage({ params }: LightNightPageProps) {
                     className="inline-flex items-center gap-2 rounded-full border border-[#f4cf88]/80 bg-[#f4cf88] px-4 py-2 text-xs font-semibold text-[#050814] shadow-[0_0_25px_rgba(250,204,21,0.35)] transition hover:brightness-110"
                   >
                     Get directions
-                    <span aria-hidden="true">↗</span>
+                    <span aria-hidden="true">→</span>
                   </Link>
                 )}
                 <Link
@@ -259,7 +259,7 @@ export default function LightNightPage({ params }: LightNightPageProps) {
                   className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#f4cf88]/80 bg-[#f4cf88] px-4 py-2 text-xs font-semibold text-[#050814] shadow-[0_0_20px_rgba(250,204,21,0.3)] transition hover:brightness-110"
                 >
                   Open in Google Maps
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">→</span>
                 </Link>
               </div>
             )}
@@ -357,7 +357,7 @@ export default function LightNightPage({ params }: LightNightPageProps) {
             className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#f4cf88]/80 bg-[#f4cf88] px-4 py-2 text-sm font-semibold text-[#050814] shadow-[0_0_24px_rgba(250,204,21,0.35)] transition hover:brightness-110"
           >
             Get directions to this Light Night
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true">→</span>
           </Link>
         </div>
       )}

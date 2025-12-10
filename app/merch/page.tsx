@@ -73,7 +73,7 @@ export default async function MerchPage() {
                   className="inline-flex items-center gap-2 rounded-full border border-[#f4cf88]/80 bg-[#e0c9c1] px-5 py-2 text-sm font-semibold text-[#050814] shadow-[0_0_30px_rgba(250,204,21,0.3)] transition hover:brightness-110"
                 >
                   Shop full store
-                  <span aria-hidden="true">↗</span>
+                  <span aria-hidden="true">→</span>
                 </Link>
               )}
               <span className="text-xs uppercase tracking-[0.2em] text-slate-400">
@@ -157,7 +157,7 @@ export default async function MerchPage() {
                           className="inline-flex items-center gap-1 rounded-full border border-[#f4cf88]/70 px-3 py-1 text-[11px] font-semibold text-[#f4cf88] transition hover:bg-[#f4cf88] hover:text-[#050814]"
                         >
                           View details
-                          <span aria-hidden="true">↗</span>
+                          <span aria-hidden="true">→</span>
                         </Link>
                       </div>
                     </div>

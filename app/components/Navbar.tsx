@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const GIVE_URL = "/give";
+const GIVE_URL = "/giving";
 
 export default function Navbar() {
   const pathname = usePathname();

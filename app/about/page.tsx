@@ -84,7 +84,7 @@ export default function AboutPage() {
                       className="inline-flex items-center gap-2 rounded-full border border-slate-700 px-4 py-1.5 text-[11px] font-semibold text-slate-200 hover:border-[#f4cf88] hover:text-[#f4cf88]"
                     >
                       Light Night worship nights
-                      <span aria-hidden="true">↗</span>
+                      <span aria-hidden="true">→</span>
                     </Link>
                   </div>
                 </div>

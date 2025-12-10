@@ -190,7 +190,7 @@ export default function ProductClient({ product }: ProductClientProps) {
               className="inline-flex items-center gap-2 rounded-full border border-[#f4cf88]/80 bg-[#e0c9c1] px-6 py-2 text-sm font-semibold text-[#050814] shadow-[0_0_30px_rgba(250,204,21,0.3)] transition hover:brightness-110"
             >
               Open in store to order
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">→</span>
             </Link>
           ) : (
             <p className="text-xs text-slate-400">
