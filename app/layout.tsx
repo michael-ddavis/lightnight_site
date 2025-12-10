@@ -2,8 +2,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import EventBanner from "./components/banner/EventBanner";
 import content from "../content.config";
-import AppShell from "./components/common/AppShell";
+import RouteLoaderOverlay from "./components/common/RouteLoaderOverlay";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,60 +15,20 @@ export const metadata: Metadata = {
   description: "Love Jesus Well.",
 };
 
-interface LightNightEncounter {
-  id: string;
-  title: string;
-  location?: string;
-  address?: string;
-  startDate?: string; // ISO string
-}
-
-export interface NextLightNightBanner {
-  id: string;
-  title: string;
-  locationLabel: string;
-  bannerDate: string; // "2025-12-12"
-  bannerTime: string; // "7:00 PM"
-}
-
-// Helper to pick the next Light Night & derive banner fields
-function getNextLightNight(): NextLightNightBanner | null {
+function getNextLightNight() {
   const cfg = content as any;
-  const encounters: LightNightEncounter[] = cfg.lightNight?.encounters ?? [];
+  const encounters: any[] = cfg.lightNight?.encounters ?? [];
   const now = Date.now();
 
   const upcoming = encounters
-    .map((e) => {
-      if (!e.startDate) return null;
-      const t = new Date(e.startDate).getTime();
-      if (!Number.isFinite(t)) return null;
-      return { ...e, _ts: t };
-    })
-    .filter((e): e is LightNightEncounter & { _ts: number } => !!e && !!e._ts)
-    .filter((e) => e._ts > now)
-    .sort((a, b) => a._ts - b._ts)[0];
+    .map((e) => ({
+      ...e,
+      _startTime: e.startDate ? new Date(e.startDate).getTime() : null,
+    }))
+    .filter((e) => e._startTime && e._startTime > now)
+    .sort((a, b) => (a._startTime as number) - (b._startTime as number))[0];
 
-  if (!upcoming) return null;
-
-  const d = new Date(upcoming.startDate as string);
-  const bannerDate = d.toISOString().slice(0, 10); // YYYY-MM-DD
-  const bannerTime = d.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-  });
-
-  const locationLabel =
-    upcoming.address ??
-    upcoming.location ??
-    "Location TBA";
-
-  return {
-    id: upcoming.id,
-    title: upcoming.title,
-    locationLabel,
-    bannerDate,
-    bannerTime,
-  };
+  return upcoming || null;
 }
 
 export default function RootLayout({
@@ -74,18 +37,40 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const nextLightNight = getNextLightNight();
+
   const forceBanner =
+    typeof process !== "undefined" &&
     process.env.NEXT_PUBLIC_ALWAYS_SHOW_BANNER === "1";
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppShell
-          nextLightNight={nextLightNight}
-          forceBanner={forceBanner}
-        >
-          {children}
-        </AppShell>
+        {/* Sticky shell: banner + navbar */}
+        <div className="sticky top-0 z-50">
+          {nextLightNight && (
+            <EventBanner
+              id={nextLightNight.id}
+              title={nextLightNight.title}
+              startISO={nextLightNight.startDate}
+              location={
+                nextLightNight.address
+                  ? `${nextLightNight.address}, ${nextLightNight.city ?? ""}`
+                  : nextLightNight.location
+              }
+              href={`/light-night/${nextLightNight.id}`}
+              forceVisible={forceBanner}
+            />
+          )}
+
+          <Navbar />
+        </div>
+
+        {children}
+
+        {/* Full-screen loader on route change */}
+        <RouteLoaderOverlay />
+
+        <Footer />
       </body>
     </html>
   );

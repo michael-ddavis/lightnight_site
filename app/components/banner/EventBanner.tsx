@@ -4,23 +4,20 @@
 import React from "react";
 import Link from "next/link";
 import useCountdown from "./useCountdown";
-import { toISO } from "./datetimeUtil";
 
 type EventBannerProps = {
   id: string;
   title: string;
-  date: string; // "2025-12-10"
-  time: string; // "7:00 PM"
+  startISO: string;     // e.g. "2025-12-12T19:00:00-05:00"
   location: string;
-  href: string; // e.g. `/light-night/rigsby-dec-12`
+  href: string;         // e.g. `/light-night/rigsby-dec-12`
   forceVisible?: boolean; // dev override
 };
 
 export default function EventBanner({
   id,
   title,
-  date,
-  time,
+  startISO,
   location,
   href,
   forceVisible = false,
@@ -30,43 +27,48 @@ export default function EventBanner({
   const [open, setOpen] = React.useState(false);
   const [hydrated, setHydrated] = React.useState(false);
 
-  // Hydration + localStorage read
   React.useEffect(() => {
     setHydrated(true);
     try {
       const stored = window.localStorage.getItem(key);
-      // if we ever stored "1", keep it closed; otherwise open
-      setOpen(stored !== "1");
+      setOpen(stored !== "1"); // open unless user dismissed
     } catch {
       setOpen(true);
     }
   }, [key]);
 
-  // Build a full ISO from date + time
-  const startISO = React.useMemo(() => toISO(date, time), [date, time]);
+  // Parse event time once
+  const startTime = React.useMemo(() => {
+    const t = new Date(startISO).getTime();
+    return Number.isFinite(t) ? t : null;
+  }, [startISO]);
 
-  // Countdown based on that ISO
-  const left = useCountdown(startISO);
+  if (!startTime) return null;
 
-  // 5-day visibility window (unless forced)
-  const startTime = new Date(startISO).getTime();
   const now = Date.now();
   const diff = startTime - now;
-  const fiveDays = 5 * 24 * 60 * 60 * 1000;
+  const fiveDaysMs = 5 * 24 * 60 * 60 * 1000;
 
-  const withinFiveDays =
-    Number.isFinite(startTime) && diff > 0 && diff <= fiveDays;
+  // Hide if already over, or more than 5 days out (unless forced)
+  if (!forceVisible && (diff <= 0 || diff > fiveDaysMs)) {
+    return null;
+  }
 
-  // Final visibility rules
-  if (!hydrated) return null;
-  if (!open) return null;
-  if (!forceVisible && !withinFiveDays) return null;
+  const left = useCountdown(startISO);
+  const shouldShow = open && (forceVisible || (!left.over && diff > 0));
 
+  if (!shouldShow || !hydrated) return null;
+
+  // UI labels
   const dateObj = new Date(startISO);
   const dateLabel = dateObj.toLocaleDateString(undefined, {
     weekday: "short",
     month: "short",
     day: "numeric",
+  });
+  const timeLabel = dateObj.toLocaleTimeString(undefined, {
+    hour: "numeric",
+    minute: "2-digit",
   });
 
   return (
@@ -81,13 +83,17 @@ export default function EventBanner({
             <span className="font-semibold">{title}</span>
             <span className="mx-1 text-white/70">•</span>
             <span className="text-white/80">
-              {dateLabel} at {time}
+              {dateLabel} at {timeLabel}
             </span>
           </div>
-          <div className="truncate text-[11px] text-white/70">{location}</div>
-
+          <div className="truncate text-[11px] text-white/70">
+            {location}
+          </div>
           {!left.over && (
-            <div className="mt-1 text-[11px] text-[#f4cf88]">
+            <div
+              className="mt-1 text-[11px] text-[#f4cf88]"
+              suppressHydrationWarning
+            >
               Starts in {left.days}d {left.hours}h {left.minutes}m{" "}
               {left.seconds}s
             </div>
@@ -106,11 +112,8 @@ export default function EventBanner({
           onClick={() => {
             try {
               window.localStorage.setItem(key, "1");
-            } catch {
-              // ignore
-            }
+            } catch {}
             setOpen(false);
-            document.documentElement.style.setProperty("--banner-h", "0px");
           }}
           aria-label="Close banner"
           className="ml-2 rounded-md border border-white/20 px-2 py-1 text-xs text-white/70 hover:bg-white/10"
