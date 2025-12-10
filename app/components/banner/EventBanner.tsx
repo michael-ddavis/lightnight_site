@@ -9,10 +9,10 @@ import { toISO } from "./datetimeUtil";
 type EventBannerProps = {
   id: string;
   title: string;
-  date: string;     // "2025-12-10"
-  time: string;     // "7:00 PM"
+  date: string; // "2025-12-10"
+  time: string; // "7:00 PM"
   location: string;
-  href: string;     // e.g. `/light-night/rigsby-dec-12`
+  href: string; // e.g. `/light-night/rigsby-dec-12`
   forceVisible?: boolean; // dev override
 };
 
@@ -27,37 +27,42 @@ export default function EventBanner({
 }: EventBannerProps) {
   const key = `bannerDismissed:${id}`;
 
-  // Basic open/closed state
-  const [open, setOpen] = React.useState<boolean>(true);
+  const [open, setOpen] = React.useState(false);
+  const [hydrated, setHydrated] = React.useState(false);
 
-  // On mount, read localStorage (unless forceVisible)
+  // Hydration + localStorage read
   React.useEffect(() => {
-    if (forceVisible) {
-      setOpen(true);
-      return;
-    }
-
+    setHydrated(true);
     try {
-      if (typeof window !== "undefined") {
-        const dismissed = window.localStorage.getItem(key);
-        if (dismissed) setOpen(false);
-      }
+      const stored = window.localStorage.getItem(key);
+      // if we ever stored "1", keep it closed; otherwise open
+      setOpen(stored !== "1");
     } catch {
-      // ignore
+      setOpen(true);
     }
-  }, [forceVisible, key]);
+  }, [key]);
 
-  // Countdown
-  const targetISO = date;
-  const left = useCountdown(targetISO);
+  // Build a full ISO from date + time
+  const startISO = React.useMemo(() => toISO(date, time), [date, time]);
 
-  // Only show inside 5-day window unless forced
-  const withinFiveDays = !left.over && left.days <= 5;
-  const shouldShow = open && (forceVisible || withinFiveDays);
+  // Countdown based on that ISO
+  const left = useCountdown(startISO);
 
-  if (!shouldShow) return null;
+  // 5-day visibility window (unless forced)
+  const startTime = new Date(startISO).getTime();
+  const now = Date.now();
+  const diff = startTime - now;
+  const fiveDays = 5 * 24 * 60 * 60 * 1000;
 
-  const dateObj = new Date(targetISO);
+  const withinFiveDays =
+    Number.isFinite(startTime) && diff > 0 && diff <= fiveDays;
+
+  // Final visibility rules
+  if (!hydrated) return null;
+  if (!open) return null;
+  if (!forceVisible && !withinFiveDays) return null;
+
+  const dateObj = new Date(startISO);
   const dateLabel = dateObj.toLocaleDateString(undefined, {
     weekday: "short",
     month: "short",
@@ -79,15 +84,12 @@ export default function EventBanner({
               {dateLabel} at {time}
             </span>
           </div>
-          <div className="truncate text-[11px] text-white/70">
-            {location}
-          </div>
+          <div className="truncate text-[11px] text-white/70">{location}</div>
+
           {!left.over && (
-            <div
-              className="mt-1 text-[11px] text-[#f4cf88]"
-              suppressHydrationWarning
-            >
-              Starts in {left.days}d {left.hours}h {left.minutes}m {left.seconds}s
+            <div className="mt-1 text-[11px] text-[#f4cf88]">
+              Starts in {left.days}d {left.hours}h {left.minutes}m{" "}
+              {left.seconds}s
             </div>
           )}
         </div>
@@ -103,14 +105,15 @@ export default function EventBanner({
         <button
           onClick={() => {
             try {
-              if (typeof window !== "undefined") {
-                window.localStorage.setItem(key, "1");
-              }
-            } catch {}
+              window.localStorage.setItem(key, "1");
+            } catch {
+              // ignore
+            }
             setOpen(false);
+            document.documentElement.style.setProperty("--banner-h", "0px");
           }}
           aria-label="Close banner"
-          className="ml-1 rounded-md border border-white/20 px-2 py-1 text-[11px] text-white/70 hover:bg-white/10"
+          className="ml-2 rounded-md border border-white/20 px-2 py-1 text-xs text-white/70 hover:bg-white/10"
         >
           ✕
         </button>

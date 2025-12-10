@@ -3,6 +3,7 @@
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import React from "react";
+import Reveal from "../components/common/Reveal";
 
 function classNames(...classes: Array<string | boolean | null | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -12,7 +13,6 @@ const coreBeliefs = [
   {
     id: "presence",
     title: "Presence Over Everything",
-    tag: "Our first calling",
     body: (
       <>
         <p>
@@ -31,7 +31,6 @@ const coreBeliefs = [
   {
     id: "word",
     title: "Founded on the Word",
-    tag: "Scripture anchored",
     body: (
       <>
         <p>
@@ -50,7 +49,6 @@ const coreBeliefs = [
   {
     id: "priesthood",
     title: "Priestly Identity",
-    tag: "Royal priesthood",
     body: (
       <>
         <p>
@@ -68,7 +66,6 @@ const coreBeliefs = [
   {
     id: "family",
     title: "Family That Loves Well",
-    tag: "Home of belonging",
     body: (
       <>
         <p>
@@ -87,7 +84,6 @@ const coreBeliefs = [
   {
     id: "sent",
     title: "Sent Ones",
-    tag: "To the nations",
     body: (
       <>
         <p>
@@ -108,7 +104,6 @@ const formationBeliefs = [
   {
     id: "formation",
     title: "Alabaster Formation Pathway",
-    tag: "Presence + formation",
     body: (
       <>
         <p>
@@ -142,7 +137,6 @@ const prayerRoomBeliefs = [
   {
     id: "prayer-room",
     title: "Alabaster Prayer Room",
-    tag: "Priests in His presence",
     body: (
       <>
         <p>
@@ -167,7 +161,6 @@ const prayerRoomBeliefs = [
   {
     id: "prayer-values",
     title: "Prayer Room Values",
-    tag: "Culture of purity & presence",
     body: (
       <>
         <p>
@@ -197,57 +190,52 @@ const prayerRoomBeliefs = [
 const doctrinalBeliefs = [
   {
     id: "bible",
-    title: "The Bible",
+    title: "The Scriptures",
     body: (
       <>
         <p>
-          The Bible is God’s Word to all people. It was written by human authors
-          under the supernatural guidance of the Holy Spirit.
+          We believe the Scriptures — Old and New Testaments — are the inspired,
+          infallible, and authoritative Word of God.
         </p>
         <p className="mt-2">
-          Because it was inspired by God, the Bible is truth without any
-          mixture of error and is completely relevant to our daily lives.
+          They reveal who God is, how He saves, and how we are called to live —
+          truth without any mixture of error and fully reliable.
         </p>
       </>
     ),
-    scriptures: ["Genesis 1:1", "Hebrews 4:12"],
+    scriptures: ["2 Timothy 3:16–17", "Psalm 19:7–11", "John 17:17"],
   },
   {
-    id: "father",
-    title: "The Father",
+    id: "trinity",
+    title: "The Trinity",
     body: (
       <>
         <p>
-          We believe in God the Father, the creator of all things, an infinite,
-          personal Spirit, perfect in holiness, wisdom, power, and love.
-        </p>
-        <p className="mt-2">
-          He concerns Himself mercifully in the affairs of His children, hears
-          and answers prayer, and saves from sin and death all who come to Him
-          through Jesus Christ.
+          We believe in one God, eternal and sovereign, existing forever as
+          Father, Son, and Holy Spirit — three Persons, one essence — worthy of
+          all worship.
         </p>
       </>
     ),
-    scriptures: ["Genesis 1:1", "John 3:16–17", "John 4:24"],
+    scriptures: ["Deuteronomy 6:4", "Matthew 28:19"],
   },
   {
     id: "jesus",
-    title: "Jesus",
+    title: "Jesus Christ",
     body: (
       <>
         <p>
-          We believe in Jesus Christ, God&apos;s only begotten Son, conceived by
-          the Holy Spirit, born of a virgin, fully God and fully man.
+          Jesus is fully God and fully man — the eternal Son who became flesh,
+          lived sinlessly, died sacrificially, rose bodily, ascended gloriously,
+          and will return triumphantly.
         </p>
         <p className="mt-2">
-          We believe in His sinless life, miracles, teachings, and that through
-          His death, burial, and resurrection He fulfilled prophecy, atoned for
-          the sins of mankind, and established His Church so that all who trust
-          in Him may receive redemption and salvation.
+          He is the only Savior and the only Way to God — the center of all
+          Scripture and the hope of the world.
         </p>
       </>
     ),
-    scriptures: ["John 1:1–14", "John 3:16–18", "Philippians 2:5–11"],
+    scriptures: ["John 1:1–14", "Acts 4:12", "1 Corinthians 15:3–4"],
   },
   {
     id: "holy-spirit",
@@ -255,19 +243,124 @@ const doctrinalBeliefs = [
     body: (
       <>
         <p>
-          We believe in the Holy Spirit who came forth from the Father and the
-          Son to convict the world of sin, righteousness, and judgment.
+          We believe the Holy Spirit regenerates, indwells, sanctifies, and
+          empowers believers to live holy, joyful, and fruitful lives.
         </p>
         <p className="mt-2">
-          He indwells, sanctifies, empowers for service, and seals until
-          redemption all who believe in Jesus Christ. He is our abiding helper,
-          teacher, and guide.
+          He distributes spiritual gifts for the building up of the church — to
+          be exercised in order, humility, and love.
         </p>
       </>
     ),
-    scriptures: ["John 14:16–17", "John 16:7–11"],
+    scriptures: ["Acts 1:8", "1 Corinthians 12:4–11", "Galatians 5:22–25"],
+  },
+  {
+    id: "humanity",
+    title: "Humanity & Sin",
+    body: (
+      <>
+        <p>
+          We believe all people are created in the image of God with dignity and
+          purpose, yet are separated from Him by sin and unable to save
+          themselves.
+        </p>
+      </>
+    ),
+    scriptures: ["Genesis 1:26–27", "Romans 3:23", "Ephesians 2:1–3"],
+  },
+  {
+    id: "salvation",
+    title: "Salvation",
+    body: (
+      <>
+        <p>
+          Salvation is by grace alone, through faith alone, in Christ alone —
+          not by works.
+        </p>
+        <p className="mt-2">
+          Through Christ we receive forgiveness, righteousness, adoption, and
+          eternal life.
+        </p>
+      </>
+    ),
+    scriptures: ["Ephesians 2:8–9", "Titus 3:4–7", "John 3:16"],
+  },
+  {
+    id: "church",
+    title: "The Church & Priesthood",
+    body: (
+      <>
+        <p>
+          Jesus is forming a family — one church, many members — united in the
+          Spirit and grounded in the Word.
+        </p>
+        <p className="mt-2">
+          We are a royal priesthood called to minister to Jesus first, love one
+          another deeply, and be sent into the world.
+        </p>
+      </>
+    ),
+    scriptures: ["1 Peter 2:9", "Ephesians 2:19–22", "Matthew 28:19–20"],
+  },
+  {
+    id: "worship-prayer",
+    title: "Worship & Prayer",
+    body: (
+      <>
+        <p>
+          We believe worship and prayer are the heart of our ministry —
+          ministering to Jesus is our first calling.
+        </p>
+        <p className="mt-2">
+          We gather to bless His name, seek His presence, and align our lives to
+          His Word.
+        </p>
+      </>
+    ),
+    scriptures: ["Psalm 27:4", "Luke 10:42", "Revelation 5:8"],
+  },
+  {
+    id: "communion",
+    title: "Communion / The Lord’s Supper",
+    body: (
+      <>
+        <p>
+          Communion is a sacred, holy mystery — a gift Jesus gave His Church to
+          remember His sacrifice, proclaim His death, and participate in His
+          body and blood.
+        </p>
+        <p className="mt-2">
+          We receive it with repentance, faith, unity, and holy reverence,
+          discerning the Lord&apos;s Body as Paul teaches in Scripture. We do
+          not take the bread and the cup lightly — they are His body and blood,
+          given for us.
+        </p>
+      </>
+    ),
+    scriptures: [
+      "1 Corinthians 10:16–17",
+      "1 Corinthians 11:23–29",
+      "Luke 22:19–20",
+    ],
+  },
+  {
+    id: "kingdom",
+    title: "The Kingdom & Return of Christ",
+    body: (
+      <>
+        <p>
+          Jesus is King — and His Kingdom is advancing through His disciples.
+        </p>
+        <p className="mt-2">
+          He will return personally and visibly to renew all things. We live
+          awake, holy, and full of hope as we wait for His appearing.
+        </p>
+      </>
+    ),
+    scriptures: ["Titus 2:13", "Revelation 21:1–5", "Matthew 24:42–44"],
   },
 ];
+
 
 function BeliefGroup({
   title,
@@ -280,7 +373,6 @@ function BeliefGroup({
   items: {
     id: string;
     title: string;
-    tag?: string;
     body: React.ReactNode;
     scriptures?: string[];
   }[];
@@ -316,11 +408,6 @@ function BeliefGroup({
                         <h3 className="text-sm font-semibold text-slate-50 sm:text-base">
                           {item.title}
                         </h3>
-                        {item.tag && (
-                          <span className="inline-flex rounded-full border border-[#e0c9c1]/60 bg-[#e0c9c1]/10 px-2 py-0.5 text-[11px] font-medium text-[#e0c9c1]">
-                            {item.tag}
-                          </span>
-                        )}
                       </div>
                       {item.scriptures && (
                         <p className="mt-1 text-[11px] text-slate-400">
@@ -362,7 +449,7 @@ function BeliefGroup({
 
 export default function BeliefsPage() {
   return (
-    <main className="bg-[#050814] text-slate-100">
+    <main className="bg-[#050814] text-slate-100 site-gutter">
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-slate-800">
         <div
@@ -375,93 +462,107 @@ export default function BeliefsPage() {
         </div>
 
         <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-20 sm:px-6 lg:px-8 lg:pb-16 lg:pt-24">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e0c9c1]">
-            What We Believe
-          </p>
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl md:text-5xl">
-            Loving Jesus deeply.{" "}
-            <span className="bg-gradient-to-r from-[#f4cf88] via-[#e0c9c1] to-white bg-clip-text text-transparent">
-              Loving Him well.
-            </span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
-            Alabaster is a family built around the presence of Jesus. Our
-            beliefs are rooted in historic, orthodox Christianity —
-            worshipping the Father, Son, and Holy Spirit — and expressed through
-            a priestly way of life: Scripture, presence, formation, and love.
-          </p>
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#e0c9c1]">
+              What We Believe
+            </p>
+          </Reveal>
+          <Reveal delayMs={50}>
+            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl md:text-5xl">
+              Loving Jesus deeply.{" "}
+              <span className="bg-gradient-to-r from-[#f4cf88] via-[#e0c9c1] to-white bg-clip-text text-transparent">
+                Loving Him well.
+              </span>
+            </h1>
+          </Reveal>
+          <Reveal delayMs={100}>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
+              Alabaster is a family built around the presence of Jesus. Our
+              beliefs are rooted in historic, orthodox Christianity —
+              worshipping the Father, Son, and Holy Spirit — and expressed through
+              a priestly way of life: Scripture, presence, formation, and love.
+            </p>
+          </Reveal>
         </div>
       </section>
 
       {/* Core values */}
-      <BeliefGroup
-        title="Alabaster Core Values"
-        description={
-          <>
-            <p>
-              These are the pillars of Alabaster&apos;s life together — Presence,
-              the Word, priesthood, family, being sent ones, worship as a
-              lifestyle, and dependence on the Holy Spirit.
-            </p>
-            <p className="mt-2">
-              They shape how we worship, how we disciple, and how we love people
-              who may not fit in traditional church spaces.
-            </p>
-          </>
-        }
-        items={coreBeliefs}
-      />
+      <Reveal>
+        <BeliefGroup
+          title="Alabaster Core Values"
+          description={
+            <>
+              <p>
+                These are the pillars of Alabaster&apos;s life together — Presence,
+                the Word, priesthood, family, being sent ones, worship as a
+                lifestyle, and dependence on the Holy Spirit.
+              </p>
+              <p className="mt-2">
+                They shape how we worship, how we disciple, and how we love people
+                who may not fit in traditional church spaces.
+              </p>
+            </>
+          }
+          items={coreBeliefs}
+        />
+      </Reveal>
 
-      {/* Formation pathway */}
-      <BeliefGroup
-        title="Formation & Discipleship"
-        description={
-          <>
-            <p>
-              Discipleship here looks like{" "}
-              <span className="text-[#e0c9c1]">
-                Presence + Formation → Priests unto Jesus
-              </span>
-              . We practice His presence together and walk through intentional
-              formation tracks that shape us into lovers of Jesus who are healed,
-              rooted, and sent.
-            </p>
-          </>
-        }
-        items={formationBeliefs}
-      />
+      <Reveal>
+        {/* Formation pathway */}
+        <BeliefGroup
+          title="Formation & Discipleship"
+          description={
+            <>
+              <p>
+                Discipleship here looks like{" "}
+                <span className="text-[#e0c9c1]">
+                  Presence + Formation → Priests unto Jesus
+                </span>
+                . We practice His presence together and walk through intentional
+                formation tracks that shape us into lovers of Jesus who are healed,
+                rooted, and sent.
+              </p>
+            </>
+          }
+          items={formationBeliefs}
+        />
+      </Reveal>
 
-      {/* Prayer room */}
-      <BeliefGroup
-        id="prayer-room"
-        title="Alabaster Prayer Room"
-        description={
-          <>
-            <p>
-              The Prayer Room is the heart center of Alabaster. It&apos;s where
-              our priestly identity is lived out — a furnace of devotion, a
-              place of encounter, and a training ground of priests unto God.
-            </p>
-          </>
-        }
-        items={prayerRoomBeliefs}
-      />
+      <Reveal>
+        <BeliefGroup
+          id="prayer-room"
+          title="Alabaster Prayer Room"
+          description={
+            <>
+              <p>
+                The Prayer Room is the heart center of Alabaster. It&apos;s where
+                our priestly identity is lived out — a furnace of devotion, a
+                place of encounter, and a training ground of priests unto God.
+              </p>
+            </>
+          }
+          items={prayerRoomBeliefs}
+        />
+      </Reveal>
 
+      <Reveal>
+        <BeliefGroup
+          title="Statement of Faith"
+          description={
+            <>
+              <p>
+                These beliefs root us in the historic Christian faith — who God
+                is, how He has revealed Himself in Scripture, and the good news of
+                Jesus Christ. They sit underneath everything Alabaster is and
+                does.
+              </p>
+            </>
+          }
+          items={doctrinalBeliefs}
+        />
+      </Reveal>
       {/* Doctrinal statement */}
-      <BeliefGroup
-        title="Statement of Faith"
-        description={
-          <>
-            <p>
-              These beliefs root us in the historic Christian faith — who God
-              is, how He has revealed Himself in Scripture, and the good news of
-              Jesus Christ. They sit underneath everything Alabaster is and
-              does.
-            </p>
-          </>
-        }
-        items={doctrinalBeliefs}
-      />
+
     </main>
   );
 }

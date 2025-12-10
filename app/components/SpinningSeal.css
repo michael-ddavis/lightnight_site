@@ -1,0 +1,26 @@
+.seal-spin {
+  position: relative;
+  display: inline-block;
+  will-change: transform;
+  transform: translateZ(0);
+  animation: spinDesktop 14s linear infinite;
+}
+
+/* Mobile: slightly slower (your request) */
+@media (max-width: 640px) {
+  .seal-spin {
+    width: 120px !important;
+    height: 120px !important;
+    animation: spinMobile 18s linear infinite;
+  }
+}
+
+@keyframes spinDesktop {
+  from { transform: rotate(0deg) translateZ(0); }
+  to { transform: rotate(360deg) translateZ(0); }
+}
+
+@keyframes spinMobile {
+  from { transform: rotate(0deg) translateZ(0); }
+  to { transform: rotate(360deg) translateZ(0); }
+}

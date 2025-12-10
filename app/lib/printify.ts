@@ -1,7 +1,7 @@
 // lib/printify.ts
 
 const BASE_URL = "https://api.printify.com/v1";
-const token = process.env.DEV_PRINTIFY_API_TOKEN!;
+const token = process.env.PRINTIFY_API_TOKEN!;
 const shopId = process.env.PRINTIFY_SHOP_ID!;
 
 const headers: Record<string, string> = {

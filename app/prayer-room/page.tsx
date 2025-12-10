@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function PrayerRoomPage() {
   return (
-    <main className="bg-[#050814] text-slate-100">
+    <main className="bg-[#050814] text-slate-100 site-gutter">
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-slate-800">
         <div

@@ -79,7 +79,7 @@ export default function LightNightPage({ params }: LightNightPageProps) {
   const countdownISO = startDate; // we expect ISO here in config
 
   return (
-    <main className="min-h-screen bg-[#050814] text-slate-100">
+    <main className="min-h-screen bg-[#050814] text-slate-100 site-gutter">
       {/* HERO FLYER CARD */}
       <section className="relative border-b border-slate-800 bg-[#050814]">
         <div className="relative mx-auto max-w-6xl px-4 pt-8 pb-4 sm:pt-10 sm:pb-6">

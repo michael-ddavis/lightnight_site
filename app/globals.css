@@ -25,3 +25,29 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
+/* Optional: speed up spinner for a cleaner look */
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+html:not(.router-loading) body {
+  opacity: 1;
+  transition: opacity .4s ease-out;
+}
+
+html.router-loading body {
+  opacity: 0;
+}
+
+/* Extra mobile gutter helper */
+@media (max-width: 640px) {
+  .site-gutter {
+    padding-left: 1rem;  /* ~px-6 */
+    padding-right: 1rem;
+  }
+}

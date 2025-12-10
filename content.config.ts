@@ -167,29 +167,132 @@ const content = {
     doctrinalStatements: [
       {
         id: "bible",
-        title: "The Bible",
-        body: "The Bible is God’s Word to all people. It was written by human authors under the supernatural guidance of the Holy Spirit. Because it was inspired by God, the Bible is truth without any mixture of error and is completely relevant to our daily lives.",
-        scriptures: ["Genesis 1:1", "Hebrews 4:12"],
+        title: "The Scriptures",
+        paragraphs: [
+          "We believe the Scriptures — Old and New Testaments — are the inspired, infallible, and authoritative Word of God.",
+          "They reveal who God is, how He saves, and how we are called to live — truth without any mixture of error and fully reliable.",
+        ],
+        scriptures: [
+          "2 Timothy 3:16–17",
+          "Psalm 19:7–11",
+          "John 17:17"
+        ]
       },
       {
-        id: "father",
-        title: "God the Father",
-        body: "We believe in God the Father, the creator of all things, an infinite, personal spirit, perfect in holiness, wisdom, power and love. He concerns Himself mercifully in the affairs of His children, hears and answers prayer, and saves from sin and death all who come to Him through Jesus Christ.",
-        scriptures: ["Genesis 1:1", "John 3:16–17", "John 4:24"],
+        id: "trinity",
+        title: "The Trinity",
+        paragraphs: [
+          "We believe in one God, eternal and sovereign, existing forever as Father, Son, and Holy Spirit — three Persons, one essence — worthy of all worship.",
+        ],
+        scriptures: [
+          "Deuteronomy 6:4",
+          "Matthew 28:19"
+        ]
       },
       {
-        id: "son",
+        id: "jesus",
         title: "Jesus Christ",
-        body: "We believe in Jesus Christ, God's only begotten Son, conceived by the Holy Spirit, born of a virgin, fully God and fully man. Through His sinless life, miracles, teaching, death, burial, and resurrection, He fulfilled prophecy, atoned for the sins of mankind, and established His Church so that all who trust in Him may receive redemption and salvation.",
-        scriptures: ["John 1:1–14", "John 3:16–18", "Philippians 2:5–11"],
+        paragraphs: [
+          "Jesus is fully God and fully man — the eternal Son who became flesh, lived sinlessly, died sacrificially, rose bodily, ascended gloriously, and will return triumphantly.",
+          "He is the only Savior and the only Way to God — the center of all Scripture and the hope of the world.",
+        ],
+        scriptures: [
+          "John 1:1–14",
+          "Acts 4:12",
+          "1 Corinthians 15:3–4"
+        ]
       },
       {
-        id: "spirit",
+        id: "holy-spirit",
         title: "The Holy Spirit",
-        body: "We believe in the Holy Spirit who proceeds from the Father and the Son to convict the world of sin, righteousness, and judgment. He indwells, sanctifies, empowers for service, and seals until the day of redemption all who believe in Jesus Christ.",
-        scriptures: ["John 14:16–17", "John 16:7–11", "Colossians 1:27"],
+        paragraphs: [
+          "We believe the Holy Spirit regenerates, indwells, sanctifies, and empowers believers to live holy, joyful, fruitful lives.",
+          "He distributes spiritual gifts for the building up of the church — to be exercised in order, humility, and love.",
+        ],
+        scriptures: [
+          "Acts 1:8",
+          "1 Corinthians 12:4–11",
+          "Galatians 5:22–25"
+        ]
       },
-    ],
+      {
+        id: "humanity",
+        title: "Humanity & Sin",
+        paragraphs: [
+          "We believe all people are created in the image of God with dignity and purpose, yet are separated from Him by sin and unable to save themselves.",
+        ],
+        scriptures: [
+          "Genesis 1:26–27",
+          "Romans 3:23",
+          "Ephesians 2:1–3"
+        ]
+      },
+      {
+        id: "salvation",
+        title: "Salvation",
+        paragraphs: [
+          "Salvation is by grace alone, through faith alone, in Christ alone — not by works.",
+          "Through Christ we receive forgiveness, righteousness, adoption, and eternal life.",
+        ],
+        scriptures: [
+          "Ephesians 2:8–9",
+          "Titus 3:4–7",
+          "John 3:16"
+        ]
+      },
+      {
+        id: "church",
+        title: "The Church & Priesthood",
+        paragraphs: [
+          "Jesus is forming a family — one church, many members — united in the Spirit and grounded in the Word.",
+          "We are a royal priesthood called to minister to Jesus first, love one another deeply, and be sent into the world.",
+        ],
+        scriptures: [
+          "1 Peter 2:9",
+          "Ephesians 2:19–22",
+          "Matthew 28:19–20"
+        ]
+      },
+      {
+        id: "worship-prayer",
+        title: "Worship & Prayer",
+        paragraphs: [
+          "We believe worship and prayer are the heart of our ministry — ministering to Jesus is our first calling.",
+          "We gather to bless His name, seek His presence, and align our lives to His Word.",
+        ],
+        scriptures: [
+          "Psalm 27:4",
+          "Luke 10:42",
+          "Revelation 5:8"
+        ]
+      },
+      {
+        id: "communion",
+        title: "The Lord’s Supper (Communion)",
+        paragraphs: [
+          "Communion is a sacred and holy mystery — a gift Jesus gave His Church to remember His sacrifice, proclaim His death, and participate in His body and blood.",
+          "We receive it with repentance, faith, unity, and holy reverence — discerning the Lord’s Body so that He is honored as holy.",
+        ],
+        scriptures: [
+          "1 Corinthians 10:16–17",
+          "1 Corinthians 11:23–29",
+          "Luke 22:19–20"
+        ]
+      },
+      {
+        id: "kingdom",
+        title: "The Kingdom & Return of Christ",
+        paragraphs: [
+          "Jesus is King — and His Kingdom is advancing through His disciples.",
+          "He will return personally and visibly to renew all things — we live awake, holy, and full of hope.",
+        ],
+        scriptures: [
+          "Titus 2:13",
+          "Revelation 21:1–5",
+          "Matthew 24:42–44"
+        ]
+      }
+    ]
   },
 
   /* =========================================================
@@ -220,6 +323,63 @@ const content = {
         "Monthly worship nights where we gather as a family and with friends to seek Jesus, pour out our oil, and Love Him well.",
     },
     encounters: [
+      // --- PAST NIGHTS (4 dummy) ---
+
+      {
+        id: "rigsby-aug-15",
+        title: "Only Jesus",
+        church: "Divine World Changers",
+        dateLabel: "Fri, Aug 15 • 7–9 PM",
+        location: "6421 Rigsby Rd",
+        city: "Richmond, VA",
+        mapsUrl: "https://maps.app.goo.gl/R74C5oprTP3wW3MD6",
+        homeImage: "/images/light-night/aug-worship-night.jpg",
+        startDate: "2025-08-15T19:00:00-04:00",
+        description:
+          "A night of turning our affection back to the One thing — Jesus at the center of everything.",
+      },
+      {
+        id: "rigsby-sep-19",
+        title: "More of Your Heart",
+        church: "Divine World Changers",
+        dateLabel: "Fri, Sep 19 • 7–9 PM",
+        location: "6421 Rigsby Rd",
+        city: "Richmond, VA",
+        mapsUrl: "https://maps.app.goo.gl/R74C5oprTP3wW3MD6",
+        homeImage: "/images/light-night/sep-worship-night.jpg",
+        startDate: "2025-09-19T19:00:00-04:00",
+        description:
+          "An evening of worship and prayer asking Jesus to share His heart with us in a deeper way.",
+      },
+      {
+        id: "rigsby-oct-17",
+        title: "Altars of Worship",
+        church: "Divine World Changers",
+        dateLabel: "Fri, Oct 17 • 7–9 PM",
+        location: "6421 Rigsby Rd",
+        city: "Richmond, VA",
+        mapsUrl: "https://maps.app.goo.gl/R74C5oprTP3wW3MD6",
+        homeImage: "/images/light-night/oct-worship-night.jpg",
+        startDate: "2025-10-17T19:00:00-04:00",
+        description:
+          "Building an altar of praise and surrender to Jesus together as a family.",
+      },
+      {
+        id: "rigsby-nov-14",
+        title: "Near to the Brokenhearted",
+        church: "Divine World Changers",
+        dateLabel: "Fri, Nov 14 • 7–9 PM",
+        location: "6421 Rigsby Rd",
+        city: "Richmond, VA",
+        mapsUrl: "https://maps.app.goo.gl/R74C5oprTP3wW3MD6",
+        homeImage: "/images/light-night/nov-worship-night.jpg",
+        startDate: "2025-11-14T19:00:00-05:00",
+        description:
+          "A gentle night for the hurting and weary, making space for Jesus to comfort and restore.",
+      },
+
+      // --- UPCOMING (your existing Dec 12 night) ---
+
       {
         id: "rigsby-dec-12",
         title: "Jesus Over Everything",
@@ -229,7 +389,7 @@ const content = {
         city: "Richmond, VA",
         mapsUrl: "https://maps.app.goo.gl/R74C5oprTP3wW3MD6",
         flyerImage: "/images/light-night/dec-worship-night.png",
-        startDate: "2025-12-12T19:00:00-05:00", // ISO for countdown
+        startDate: "2025-12-12T19:00:00-05:00", // ISO for countdown / ordering
         description:
           "A night set apart to worship Jesus together as a family, pour out our oil, and make room for His presence.",
         setlist: [
@@ -260,40 +420,35 @@ const content = {
     },
 
     square: {
-      checkoutUrl:
-        "https://checkout.square.site/merchant/your-merchant/checkout/your-checkout-id",
       logoSrc: "/images/logos/square.svg",
+
+      // fallback general giving URL (optional)
+      customGiving: "https://donate.stripe.com/00g00k9eW4E5be03cc",
+
+      // one-time preset amount links
+      oneTimeLinks: [
+        { amount: "25", href: "https://donate.stripe.com/00waEX9z3bBR8qDdBR2ZO01" },
+        { amount: "50", href: "https://donate.stripe.com/fZueVd7qVcFVeP1gO32ZO02", },
+        { amount: "100", href: "https://donate.stripe.com/28EeVd3aFfS7eP169p2ZO03", },
+        { amount: "250", href: "https://donate.stripe.com/5kQcN5cLfdJZ36jeFV2ZO04" },
+      ],
+
+      // monthly plans (already used by your page)
+      monthlyPlans: [
+        { id: "m25", label: "$25 / month", href: "https://donate.stripe.com/bJe28r26B6hx5er1T92ZO05" },
+        { id: "m50", label: "$50 / month", href: "https://donate.stripe.com/cNi5kDbHb6hxgX98hx2ZO06" },
+        { id: "m100", label: "$100 / month", href: "https://donate.stripe.com/dRmeVdh1vaxN36j55l2ZO07" },
+        { id: "m250", label: "$250 / month", href: "https://donate.stripe.com/bJe8wP8uZcFVcGT8hx2ZO08" },
+
+      ],
     },
 
     venmo: {
-      username: "YourVenmoUser",
+      username: "alabasterministriesofficial",
       defaultNote: "Alabaster Giving",
       logoSrc: "/images/logos/venmo.svg",
-      qrImageSrc: "/images/qr/venmo.png",
+      qrImageSrc: "/images/giving/alabaster-venmo.jpg",
     },
-
-    recurringPlans: [
-      {
-        id: "m25",
-        label: "$25 / month",
-        href: "https://square.link/u/plan-25",
-      },
-      {
-        id: "m50",
-        label: "$50 / month",
-        href: "https://square.link/u/plan-50",
-      },
-      {
-        id: "m100",
-        label: "$100 / month",
-        href: "https://square.link/u/plan-100",
-      },
-      {
-        id: "custom",
-        label: "Custom / month",
-        href: "https://square.link/u/plan-custom",
-      },
-    ],
 
     trustCards: [
       {
@@ -384,7 +539,7 @@ const content = {
 
       formation: {
         title: "2️⃣ Formation Tracks",
-        body: "Three intentional discipleship experiences that most people walk through in their first 12–18 months:",
+        body: "Three intentional discipleship experiences that most people walk through in their first 12 months:",
         points: [
           "Whole Heart – healing & wholeness",
           "His Heart – seeing Jesus clearly",
@@ -505,7 +660,7 @@ const content = {
 
     contact: {
       emailLabel: "Email",
-      email: "info@alabasterchurch.org",
+      email: "hello@alabasterchurch.org",
       phoneLabel: "Phone",
       phone: "",
       // optional: small line under email/phone

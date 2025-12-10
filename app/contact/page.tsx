@@ -1,5 +1,7 @@
+// app/contact/page.tsx
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import content from "../../content.config";
@@ -14,24 +16,63 @@ const cityLabel: string = contactConfig.cityLabel || "Richmond, VA";
 const instagramHandle: string =
   contactConfig.instagramHandle || "@alabasterministriesofficial";
 const instagramUrl: string =
-  contactConfig.instagramUrl || "https://instagram.com/alabasterministriesofficial";
+  contactConfig.instagramUrl ||
+  "https://instagram.com/alabasterministriesofficial";
+
+type Status = "idle" | "sending" | "sent" | "error";
 
 export default function ContactPage() {
+  const [status, setStatus] = React.useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMsg(null);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: formData.get("name") ?? "",
+      email: formData.get("email") ?? "",
+      reason: formData.get("reason") ?? "general",
+      message: formData.get("message") ?? "",
+      honeypot: formData.get("website") ?? "",
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (res.ok && data?.ok) {
+        setStatus("sent");
+        setErrorMsg(null);
+        form.reset();
+      } else {
+        setStatus("error");
+        setErrorMsg(
+          (data && data.error) ||
+            "Something went wrong while sending your message."
+        );
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg(
+        "Network error while sending. Please check your connection or try again."
+      );
+    }
+  }
+
   return (
-    <main className="min-h-screen bg-[#050814] text-slate-100">
+    <main className="min-h-screen bg-[#050814] text-slate-100 site-gutter">
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-slate-800">
-        {/* Background image (soft) */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/contact_header.jpg"
-            alt="Soft worship atmosphere"
-            fill
-            className="object-cover opacity-25"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-[#050814]/90 to-[#050814]" />
-        </div>
-
         {/* Glows */}
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -left-40 top-10 h-[20rem] w-[20rem] rounded-full bg-[#f4cf88]/40 blur-[130px]" />
@@ -79,9 +120,8 @@ export default function ContactPage() {
       <section className="border-b border-slate-800 bg-[#050814] py-10 sm:py-14">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.2fr)] lg:items-start">
-            {/* LEFT: Contact details & “how to connect” */}
+            {/* LEFT: Contact details */}
             <div className="space-y-8">
-              {/* Basic contact blocks */}
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-[#e0c9c1]">
                   Ways to reach us
@@ -120,7 +160,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Location / city */}
+              {/* Location */}
               <div>
                 <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400">
                   City &amp; region
@@ -145,7 +185,10 @@ export default function ContactPage() {
                     target="_blank"
                     className="inline-flex items-center rounded-full border border-slate-700 px-3 py-1 font-medium text-slate-100 hover:border-[#f4cf88] hover:text-[#f4cf88]"
                   >
-                    Instagram <span className="ml-1 text-slate-400">{instagramHandle}</span>
+                    Instagram{" "}
+                    <span className="ml-1 text-slate-400">
+                      {instagramHandle}
+                    </span>
                   </Link>
                 </div>
                 <p className="mt-2 text-[11px] text-slate-400">
@@ -154,7 +197,7 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              {/* “What happens when you reach out” */}
+              {/* “When you reach out” */}
               <div className="rounded-2xl border border-slate-800 bg-black/50 p-4 text-xs text-slate-300">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#f4cf88]">
                   When you reach out
@@ -171,7 +214,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* RIGHT: Contact / prayer form */}
+            {/* RIGHT: Form */}
             <div className="relative">
               <div className="pointer-events-none absolute -inset-5 rounded-[30px] bg-gradient-to-tr from-[#f4cf88]/18 via-[#e0c9c1]/12 to-transparent blur-2xl" />
               <div className="relative rounded-3xl border border-slate-800 bg-black/60 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.9)] sm:p-6">
@@ -185,9 +228,17 @@ export default function ContactPage() {
 
                 <form
                   className="mt-4 space-y-4 text-sm"
-                  // You can replace this later with an onSubmit handler or action
-                  onSubmit={(e) => e.preventDefault()}
+                  onSubmit={handleSubmit}
                 >
+                  {/* Honeypot */}
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="hidden"
+                  />
+
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div className="flex flex-col gap-1">
                       <label
@@ -217,6 +268,7 @@ export default function ContactPage() {
                         name="email"
                         type="email"
                         autoComplete="email"
+                        required
                         className="rounded-xl border border-slate-700 bg-black/30 px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-[#f4cf88]"
                         placeholder="you@example.com"
                       />
@@ -259,6 +311,7 @@ export default function ContactPage() {
                       id="message"
                       name="message"
                       rows={5}
+                      required
                       className="rounded-xl border border-slate-700 bg-black/30 px-3 py-2 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-[#f4cf88]"
                       placeholder="Share what’s on your heart..."
                     />
@@ -271,20 +324,39 @@ export default function ContactPage() {
                   <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                     <button
                       type="submit"
-                      className="inline-flex items-center rounded-full border border-[#f4cf88]/80 bg-[#e0c9c1] px-4 py-1.5 text-xs font-semibold text-[#050814] hover:brightness-110"
+                      disabled={status === "sending"}
+                      className="inline-flex items-center rounded-full border border-[#f4cf88]/80 bg-[#e0c9c1] px-4 py-1.5 text-xs font-semibold text-[#050814] hover:brightness-110 disabled:opacity-60"
                     >
-                      Send to Alabaster
+                      {status === "sending"
+                        ? "Sending..."
+                        : "Send to Alabaster"}
                     </button>
-                    <p className="text-[10px] text-slate-500">
-                      Prefer email? Write us at{" "}
-                      <a
-                        href={`mailto:${primaryEmail}`}
-                        className="font-medium text-[#e0c9c1] hover:text-[#f4cf88]"
-                      >
-                        {primaryEmail}
-                      </a>
-                      .
-                    </p>
+
+                    {status === "sent" && (
+                      <p className="text-[10px] text-[#f4cf88]">
+                        Thank you for sharing — we’ve received your note.
+                      </p>
+                    )}
+
+                    {status === "error" && (
+                      <p className="text-[10px] text-red-400">
+                        {errorMsg ??
+                          "Something went wrong. Please try again or email us directly."}
+                      </p>
+                    )}
+
+                    {status === "idle" && (
+                      <p className="text-[10px] text-slate-500">
+                        Prefer email? Write us at{" "}
+                        <a
+                          href={`mailto:${primaryEmail}`}
+                          className="font-medium text-[#e0c9c1] hover:text-[#f4cf88]"
+                        >
+                          {primaryEmail}
+                        </a>
+                        .
+                      </p>
+                    )}
                   </div>
                 </form>
               </div>
